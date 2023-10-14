@@ -1,0 +1,5 @@
+export const LIST_FOLDER = 'LIST_FOLDER'
+export const DETAIL_FOLDER = 'DETAIL_FOLDER'
+export const LIST_FILE = 'LIST_FILE'
+export const DETAIL_FILE = 'DETAIL_FILE'
+export const FOLDER_MAKE_TREE = 'FOLDER_MAKE_TREE'
