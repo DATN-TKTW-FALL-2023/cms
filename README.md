@@ -1,16 +1,4 @@
-<p align="center">
-  <a href="http://twinger.vn/" target="blank"><img src="https://twinger.vn/wp-content/themes/main/assets/images/logo_twinger.png" width="200" alt="Twinger Logo" /></a>
-</p>
-
-## Prerequisite
-
-- VS Code's extensions:
-  - EditorConfig
-  - TODO Highlight
-  - ESLint
-  - Code Spell Checker
-
-- Yarn: <https://yarnpkg.com/>
+CMS website đặt vé xem phim Mofy
 
 ## Note
 
@@ -19,7 +7,7 @@
 
 ## How to Start
 
-- `.env.development` copied from the wiki from the project's repository 
+- `.env.development` copied from the wiki from the project's repository
 - Create `.env.development.local` from `.env.development` with your own modifications:
 
 ```sh
