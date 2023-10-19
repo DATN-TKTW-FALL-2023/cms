@@ -4,3 +4,5 @@ export * from './media'
 export * from './role'
 export * from './taxonomy'
 export * from './post'
+export * from './room'
+
