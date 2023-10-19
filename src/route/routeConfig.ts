@@ -22,6 +22,7 @@ const Post = lazyLoading(() => import('@pages/post'))
 const CreatePost = lazyLoading(() => import('@pages/post/create'))
 const DetailPost = lazyLoading(() => import('@pages/post/detail'))
 const Category = lazyLoading(() => import('@pages/post/category'))
+const LayoutRoom = lazyLoading(() => import('@pages/room/layout'))
 const CreateCategory = lazyLoading(() => import('@pages/post/category/create'))
 const DetailCategory = lazyLoading(() => import('@pages/post/category/detail'))
 
@@ -104,6 +105,13 @@ const routeConfig: TRouteConfig[] = [
     Element: DetailCategory,
     key: ACCESS.LIST_TAXONOMY,
   },
+
+  //room
+  {
+    path: '/layout-room',
+    Element: LayoutRoom,
+    key: ACCESS.LIST_TAXONOMY,
+  }
 ]
 
 export default routeConfig

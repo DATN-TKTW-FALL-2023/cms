@@ -8,8 +8,10 @@ import { queryClient } from '..'
 import {
     createLayout,
     getListLayout,
+    removeLayoutById,
 } from '../apis'
 import { LIST_LAYOUT } from '../keys'
+import { TQueryLayout } from '@src/modules'
 
 /**
  *
@@ -30,16 +32,30 @@ export const useMutationCreateLayout = () =>
 
 /**
  * @method useQueryListLayout
- * @param {TQueryPost}params
+ * @param {TQueryLayout}params
  * @param {string}token
  * @returns
  */
-export const useQueryListLayout = (token?: string) => {
+export const useQueryListLayout = (params: TQueryLayout, token?: string) => {
     const accessToken = token || checkAuth()
     return useQuery<TResDataListApi<any[]>>(
-        [],
-        () => getListLayout(accessToken),
+        [LIST_LAYOUT],
+        () => getListLayout(params, accessToken),
         { enabled: !!accessToken },
     )
 }
+
+/**
+ * @method useMutationRemoveLayoutById
+ */
+export const useMutationRemoveLayoutById = () =>
+    useMutation(removeLayoutById, {
+        onSuccess: (res: TResApi) => {
+            queryClient.refetchQueries([LIST_LAYOUT])
+            notification.success({ message: NSuccess, description: res?.message })
+        },
+        onError: (error: TResApiErr) => {
+            notification.error({ message: NError, description: error?.message })
+        },
+    })
 

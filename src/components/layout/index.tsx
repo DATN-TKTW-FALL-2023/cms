@@ -62,7 +62,7 @@ function LayoutApp({ children }: ILayoutApp) {
     () => [
       getItem(<Link to="/">Dashboard</Link>, 'dashboard', ACCESS.GENERAL, permissions, <DashboardOutlined />),
       getItem('Quản lý phòng', 'roomG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/layout">Layout Phòng</Link>, 'layout', ACCESS.LIST_TAXONOMY, permissions),
+        getItem(<Link to="/layout-room">Layout Phòng</Link>, 'layout', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/room">Danh Sách Phòng</Link>, 'room', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/create-room">Thêm Phòng</Link>, 'create-room', ACCESS.CREATE_ROOM, permissions),
       ]),
