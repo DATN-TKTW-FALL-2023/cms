@@ -1,7 +1,7 @@
 import { EOrder, EOrderBy } from '@src/configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { TQueryLayout } from '@src/modules'
-import { useQueryListLayout } from '@src/queries/hooks'
+import { useQueryListRoom } from '@src/queries/hooks'
 import { Col, Row, Table } from 'antd'
 import { useMemo, useState } from 'react'
 import HeadHtml from '@src/components/layout/HeadHtml'
@@ -23,7 +23,7 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
     data: listLayout,
     isLoading: isLoadingListLayout,
     isFetching: isFetchingListLayout,
-  } = useQueryListLayout(params, token)
+  } = useQueryListRoom(params, token)
 
   const listLayoutData = useMemo(() => listLayout?.data, [listLayout, isLoadingListLayout, isFetchingListLayout])
   const navigate = useNavigate()
@@ -31,10 +31,10 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
   const columns = columnsTableLayout(prefixDetailUrl, postType)
   return (
     <Col span={24}>
-      <HeadHtml title="Layout Phòng Chiếu" />
+      <HeadHtml title="Danh Sách Phòng Chiếu" />
       <PageHeader
-        title="Layout Phòng Chiếu"
-        extra={[{ text: 'Thêm Layout', action: () => navigate('/create-layout-room') }]}
+        title="Danh Sách Phòng Chiếu"
+        extra={[{ text: 'Thêm Phòng', action: () => navigate('/create-layout-room') }]}
         isSearch={false}
       />
       <Row>
