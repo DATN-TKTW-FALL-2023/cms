@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react'
 import HeadHtml from '@src/components/layout/HeadHtml'
 import PageHeader from '@src/components/widgets/PageHeader'
 import { useNavigate } from 'react-router-dom'
-import { columnsTableLayout } from '../components/layoutTable.config'
+import { columnsTableLayout } from './components/roomTable.config'
 const LIMIT = 20
 
 function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {

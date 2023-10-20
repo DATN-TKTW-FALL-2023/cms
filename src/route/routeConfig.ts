@@ -1,5 +1,6 @@
 import lazyLoading from '@src/components/widgets/LazyLoading'
 import { ACCESS } from '@src/configs/permission'
+import DetailLayoutRoom from '@src/pages/room/layout/detail'
 import React from 'react'
 import { PathRouteProps } from 'react-router-dom'
 
@@ -23,6 +24,8 @@ const CreatePost = lazyLoading(() => import('@pages/post/create'))
 const DetailPost = lazyLoading(() => import('@pages/post/detail'))
 const Category = lazyLoading(() => import('@pages/post/category'))
 const LayoutRoom = lazyLoading(() => import('@pages/room/layout'))
+const Room = lazyLoading(() => import('@pages/room'))
+const CreateLayoutRoom = lazyLoading(() => import('@pages/room/layout/create'))
 const CreateCategory = lazyLoading(() => import('@pages/post/category/create'))
 const DetailCategory = lazyLoading(() => import('@pages/post/category/detail'))
 
@@ -110,8 +113,23 @@ const routeConfig: TRouteConfig[] = [
   {
     path: '/layout-room',
     Element: LayoutRoom,
-    key: ACCESS.LIST_TAXONOMY,
-  }
+    key: ACCESS.LIST_ROOM,
+  },
+  {
+    path: '/create-layout-room',
+    Element: CreateLayoutRoom,
+    key: ACCESS.LIST_ROOM,
+  },
+  {
+    path: '/layout-room/:id',
+    Element: DetailLayoutRoom,
+    key: ACCESS.LIST_ROOM,
+  },
+  {
+    path: '/room',
+    Element: Room,
+    key: ACCESS.LIST_ROOM,
+  },
 ]
 
 export default routeConfig
