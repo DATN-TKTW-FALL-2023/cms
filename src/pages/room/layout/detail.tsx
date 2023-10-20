@@ -3,12 +3,12 @@ import ActionPublish from '@components/widgets/ActionPublish'
 import HeadHtml from '@components/layout/HeadHtml'
 import PageHeader from '@components/widgets/PageHeader'
 import { checkAuth } from '@libs/localStorage'
-import { TPostTaxonomy } from '@modules/index'
 import { queryClient } from '@queries/index'
-import { useMutationCreateLayout } from '@queries/hooks'
+import { useMutationUpdateLayoutById, useQueryGetLayoutById } from '@queries/hooks'
 import { LIST_LAYOUT } from '@queries/keys'
 import { Badge, Card, Col, Form, Input, InputNumber, Select } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 type FieldType = {
   name?: string
@@ -16,24 +16,36 @@ type FieldType = {
   column?: number
 }
 
-function CreateLayoutRoom() {
+function DetailLayoutRoom() {
   const token = checkAuth()
+  const { id } = useParams()
   const [form] = Form.useForm<any>()
+  const { data: LayoutData } = useQueryGetLayoutById(id || '')
+  const { mutate, isLoading } = useMutationUpdateLayoutById()
 
-  const { mutate, isLoading } = useMutationCreateLayout()
   const navigate = useNavigate()
-
   const onFinish = (values: any) => {
-    mutate(
-      { ...values },
-      {
-        onSuccess: () => {
-          queryClient.refetchQueries([LIST_LAYOUT])
-          navigate('/layout-room')
+    if (id)
+      mutate(
+        { id, data: values },
+        {
+          onSuccess: () => {
+            queryClient.refetchQueries([LIST_LAYOUT])
+            navigate('/layout-room')
+          },
         },
-      },
-    )
+      )
   }
+  useEffect(() => {
+    if (LayoutData) {
+      form.setFieldsValue({
+        name: LayoutData?.data?.name,
+        row: LayoutData?.data?.row,
+        column: LayoutData?.data?.column,
+        status: LayoutData?.data?.status,
+      })
+    }
+  }, [LayoutData])
 
   return (
     <>
@@ -47,6 +59,7 @@ function CreateLayoutRoom() {
                   label="Tên Layout"
                   name="name"
                   rules={[{ required: true, message: 'Vui lòng điền tên!' }]}
+                  initialValue={LayoutData?.data?.name}
                 >
                   <Input />
                 </Form.Item>
@@ -54,6 +67,7 @@ function CreateLayoutRoom() {
                   label="Số Hàng Ghế"
                   name="row"
                   rules={[{ required: true, message: 'Vui lòng điền số hàng ghế!' }]}
+                  initialValue={LayoutData?.data?.row}
                 >
                   <InputNumber />
                 </Form.Item>
@@ -61,6 +75,7 @@ function CreateLayoutRoom() {
                   label="Số Ghế 1 Hàng"
                   name="column"
                   rules={[{ required: true, message: 'Vui lòng điền số ghế 1 hàng!' }]}
+                  initialValue={LayoutData?.data?.column}
                 >
                   <InputNumber />
                 </Form.Item>
@@ -88,4 +103,4 @@ function CreateLayoutRoom() {
   )
 }
 
-export default CreateLayoutRoom
+export default DetailLayoutRoom
