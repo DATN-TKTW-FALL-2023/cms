@@ -29,6 +29,7 @@ const CreateRoom = lazyLoading(() => import('@pages/room/create'))
 const CreateLayoutRoom = lazyLoading(() => import('@pages/room/layout/create'))
 const CreateCategory = lazyLoading(() => import('@pages/post/category/create'))
 const DetailCategory = lazyLoading(() => import('@pages/post/category/detail'))
+const DetailRoom = lazyLoading(() => import('@pages/room/detail'))
 
 const routeConfig: TRouteConfig[] = [
   {
@@ -134,6 +135,11 @@ const routeConfig: TRouteConfig[] = [
   {
     path: '/create-room',
     Element: CreateRoom,
+    key: ACCESS.LIST_ROOM,
+  },
+  {
+    path: '/room/:id',
+    Element: DetailRoom,
     key: ACCESS.LIST_ROOM,
   },
 ]
