@@ -20,7 +20,7 @@ function DetailLayoutRoom() {
   const token = checkAuth()
   const { id } = useParams()
   const [form] = Form.useForm<any>()
-  const { data: LayoutData } = useQueryGetLayoutById(id || '')
+  const { data: LayoutData, isLoading: isLayoutLoading } = useQueryGetLayoutById(id || '')
   const { mutate, isLoading } = useMutationUpdateLayoutById()
 
   const navigate = useNavigate()
@@ -51,7 +51,7 @@ function DetailLayoutRoom() {
     <>
       <HeadHtml title="Thêm Layout Phòng Chiếu" />
       <Col span={24}>
-        <FormSidebar scrollToFirstError form={form} onFinish={onFinish}>
+        <FormSidebar scrollToFirstError form={form} onFinish={onFinish} isLoading={isLayoutLoading}>
           <>
             <FormSidebar.Content>
               <Card hoverable title={<PageHeader title="Thêm Layout Phòng Chiếu" isSearch={false} inCard />}>

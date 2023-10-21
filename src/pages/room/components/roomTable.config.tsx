@@ -25,15 +25,16 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       },
     },
     {
-      title: 'Hàng',
-      dataIndex: 'row',
-      key: 'row',
-      render: (v) => v || '__',
+      title: 'Layout',
+      dataIndex: 'layout',
+      key: 'layout',
+      render: (layout) => layout?.name,
     },
     {
-      title: 'Cột',
-      dataIndex: 'column',
-      key: 'column',
+      title: 'Số ghế',
+      dataIndex: 'seats',
+      key: 'seats',
+      render: (seats) => seats?.length,
     },
     {
       title: 'Published',
@@ -46,7 +47,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Button type="link" onClick={() => navigate(`/layout-room/${record._id}`)}>
+          <Button type="link" onClick={() => navigate(`/room/${record._id}`)}>
             Detail
           </Button>
           <Popconfirm

@@ -75,7 +75,7 @@ export const useMutationRemoveLayoutById = () =>
 export const useMutationUpdateLayoutById = () =>
     useMutation(({ id, data }: { id: string; data: any }) => updateLayoutById(id, data), {
         onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
+            queryClient.refetchQueries([LIST_LAYOUT, LIST_ROOM])
             notification.success({ message: NSuccess, description: res?.message })
         },
         onError: (error: TResApiErr) => {
@@ -144,7 +144,7 @@ export const useMutationRemoveRoomById = () =>
 export const useMutationUpdateRoomById = () => {
     return useMutation(({ id, data }: { id: string; data: any }) => updateRoomById(id, data), {
         onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
+            queryClient.refetchQueries([LIST_ROOM])
             notification.success({ message: NSuccess, description: res?.message })
         },
         onError: (error: TResApiErr) => {
