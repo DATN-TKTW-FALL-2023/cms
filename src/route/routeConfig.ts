@@ -31,6 +31,7 @@ const CreateCategory = lazyLoading(() => import('@pages/post/category/create'))
 const DetailCategory = lazyLoading(() => import('@pages/post/category/detail'))
 const DetailRoom = lazyLoading(() => import('@pages/room/detail'))
 const RoomSeats = lazyLoading(() => import('@pages/room/seats'))
+const CreateFilm = lazyLoading(() => import('@pages/film/create'))
 
 const routeConfig: TRouteConfig[] = [
   {
@@ -146,6 +147,11 @@ const routeConfig: TRouteConfig[] = [
   {
     path: '/room/:id/seats',
     Element: RoomSeats,
+    key: ACCESS.LIST_ROOM,
+  },
+  {
+    path: '/create-film',
+    Element: CreateFilm,
     key: ACCESS.LIST_ROOM,
   }
 ]

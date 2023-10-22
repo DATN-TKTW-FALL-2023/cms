@@ -5,4 +5,5 @@ export * from './role'
 export * from './taxonomy'
 export * from './post'
 export * from './room'
+export * from './film'
 
