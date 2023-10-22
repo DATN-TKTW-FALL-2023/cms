@@ -129,7 +129,7 @@ export const useQueryListRoom = (params: any, token?: string) => {
 export const useMutationRemoveRoomById = () =>
     useMutation(removeRoomById, {
         onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
+            queryClient.refetchQueries([LIST_ROOM])
             notification.success({ message: NSuccess, description: res?.message })
         },
         onError: (error: TResApiErr) => {
