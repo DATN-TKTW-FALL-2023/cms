@@ -1,7 +1,7 @@
 import { FORMAT_TIME_DEFAULT } from '@src/configs/const.config'
 import { TTaxonomyMakeTree } from '@src/modules'
 import { queryClient } from '@src/queries'
-import { useMutationRemoveLayoutById } from '@src/queries/hooks'
+import { useMutationRemoveRoomById } from '@src/queries/hooks'
 import { LIST_LAYOUT } from '@src/queries/keys'
 import { Popconfirm, Button, Space, Typography } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 export const columnsTableLayout = (prefixDetailUrl: string, postType: string): ColumnsType<TTaxonomyMakeTree> => {
   const navigate = useNavigate()
-  const { mutate } = useMutationRemoveLayoutById()
+  const { mutate } = useMutationRemoveRoomById()
   return [
     {
       title: 'Tên',
@@ -47,6 +47,9 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
+          <Button type="link" onClick={() => navigate(`/room/${record._id}/seats`)}>
+            Quản lý ghế
+          </Button>
           <Button type="link" onClick={() => navigate(`/room/${record._id}`)}>
             Detail
           </Button>
