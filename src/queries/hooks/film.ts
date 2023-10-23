@@ -8,6 +8,7 @@ import { queryClient } from '..'
 import {
           createFilm,
           createLayout,
+          getListFilm,
 
 } from '../apis'
 import { TQueryLayout } from '@src/modules'
@@ -30,5 +31,20 @@ export const useMutationCreateFilm = () =>
                     },
           })
 
+
+          /**
+ * @method useQueryListFilm
+ * @param {TQueryLayout}params
+ * @param {string}token
+ * @returns
+ */
+export const useQueryListFilm = (params: TQueryLayout, token?: string) => {
+          const accessToken = token || checkAuth()
+          return useQuery<TResDataListApi<any[]>>(
+              [LIST_FILM],
+              () => getListFilm(params, accessToken),
+              { enabled: !!accessToken },
+          )
+      }
 
 

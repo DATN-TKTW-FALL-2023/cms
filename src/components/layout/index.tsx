@@ -67,7 +67,7 @@ function LayoutApp({ children }: ILayoutApp) {
         getItem(<Link to="/create-room">Thêm Phòng</Link>, 'create-room', ACCESS.CREATE_ROOM, permissions),
       ]),
       getItem('Quản lý phim', 'postG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/post">List post</Link>, 'post', ACCESS.LIST_POST, permissions),
+        getItem(<Link to="/list-film">List Film</Link>, 'list-film', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/create-film">Thêm Phim</Link>, 'create-film', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/category">Category</Link>, 'category', ACCESS.LIST_TAXONOMY, permissions),
       ]),
