@@ -5,7 +5,6 @@ import PageHeader from '@components/widgets/PageHeader'
 import { Badge, Card, Col, Collapse, Form, Input, Row, Select, Space } from 'antd'
 import {
   useQueryListLayout,
-  useMutationCreateRoom,
   useQueryTaxonomyMakeTree,
   useMutationCreateFilm,
 } from '@src/queries/hooks'
@@ -30,9 +29,7 @@ function CreateFilm() {
     orderBy: EOrderBy.CREATED_DATE,
   })
   const {
-    data: listLayout,
     isLoading: isLoadingListLayout,
-    isFetching: isFetchingListLayout,
   } = useQueryListLayout(params, token)
 
   const {
@@ -48,9 +45,10 @@ function CreateFilm() {
   const { mutate: mutateCreateFilm, isLoading: isLoadingCreateRoom } = useMutationCreateFilm()
 
   const onFinish = (values: any) => {
+    console.log(values);
     mutateCreateFilm(values, {
       onSuccess: () => {
-        navigate('/room')
+        console.log(values);
       },
     })
   }
@@ -64,7 +62,7 @@ function CreateFilm() {
             <Card hoverable title={<PageHeader title="Thêm Phòng Chiếu" isSearch={false} inCard />}>
               <Form.Item
                 name="name"
-                label="Tên Phòng"
+                label="Tên phim"
                 rules={[
                   {
                     required: true,
