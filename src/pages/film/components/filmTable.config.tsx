@@ -13,7 +13,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
   const { mutate } = useMutationRemoveRoomById()
   return [
     {
-      title: 'Tên',
+      title: 'Tên phim',
       dataIndex: 'name',
       key: 'name',
       render(name, record) {
@@ -35,6 +35,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       dataIndex: 'actor',
       key: 'actor',
       render: (actor) => actor,
+
     },
     {
       title: 'Nội dung',
@@ -53,12 +54,38 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       dataIndex: 'thumbnail',
       key: 'thumbnail',
       render: (thumbnail) => thumbnail,
+
     },
+    {
+      title: 'Nội dung',
+      dataIndex: 'content',
+      key: 'content',
+      render: (content) => content,
+    },
+    {
+      title: 'Ghi chú',
+      dataIndex: 'excerpt',
+      key: 'excerpt',
+      render: (excerpt) => excerpt,
+    },
+    {
+      title: 'Ảnh nhỏ',
+      dataIndex: 'thumbnail',
+      key: 'thumbnail',
+      render: (thumbnail) => <img src={thumbnail} alt="Thumbnail" style={{ width: '100px' }} />,
+    },
+    
     {
       title: 'Published',
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => dayjs(value).format(FORMAT_TIME_DEFAULT),
+    },
+    {
+      title: 'trailerUrl',
+      dataIndex: 'trailerUrl',
+      key: 'trailerUrl',
+      render: (trailerUrl) => trailerUrl,
     },
     {
       title: 'Action',
