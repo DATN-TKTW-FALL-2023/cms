@@ -13,7 +13,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
   const { mutate } = useMutationRemoveRoomById()
   return [
     {
-      title: 'Tên phim',
+      title: 'Tên',
       dataIndex: 'name',
       key: 'name',
       render(name, record) {
@@ -52,20 +52,13 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       title: 'Ảnh nhỏ',
       dataIndex: 'thumbnail',
       key: 'thumbnail',
-      render: (thumbnail) => <img src={thumbnail} alt="Thumbnail" style={{ width: '100px' }} />,
+      render: (thumbnail) => thumbnail,
     },
-    
     {
       title: 'Published',
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => dayjs(value).format(FORMAT_TIME_DEFAULT),
-    },
-    {
-      title: 'trailerUrl',
-      dataIndex: 'trailerUrl',
-      key: 'trailerUrl',
-      render: (trailerUrl) => trailerUrl,
     },
     {
       title: 'Action',
