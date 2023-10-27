@@ -24,7 +24,6 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
     isLoading: isLoadingListLayout,
     isFetching: isFetchingListLayout,
   } = useQueryListFilm(params, token)
-
   const listLayoutData = useMemo(() => listLayout?.data, [listLayout, isLoadingListLayout, isFetchingListLayout])
   const navigate = useNavigate()
 
