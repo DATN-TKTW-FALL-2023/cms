@@ -64,7 +64,7 @@ function CreateFilm() {
             <Card hoverable title={<PageHeader title="Thêm Phòng Chiếu" isSearch={false} inCard />}>
               <Form.Item
                 name="name"
-                label="Tên Phòng"
+                label="Tên phim"
                 rules={[
                   {
                     required: true,
@@ -93,6 +93,30 @@ function CreateFilm() {
                   {
                     required: true,
                     message: 'Diễn Viên là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
+              </Form.Item>
+              <Form.Item
+                name="content"
+                label="Nội dung"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Nội dung phim bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
+              </Form.Item>
+              <Form.Item
+                name="trailerUrl"
+                label="trailerUrl"
+                rules={[
+                  {
+                    required: true,
+                    message: 'trailerUrl phim bắt buộc!',
                   },
                 ]}
               >

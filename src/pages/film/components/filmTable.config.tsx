@@ -13,7 +13,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
   const { mutate } = useMutationRemoveRoomById()
   return [
     {
-      title: 'Tên',
+      title: 'Tên phim',
       dataIndex: 'name',
       key: 'name',
       render(name, record) {
@@ -25,17 +25,36 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       },
     },
     {
-      title: 'Layout',
-      dataIndex: 'layout',
-      key: 'layout',
-      render: (layout) => layout?.name,
+      title: 'Đạo diễn',
+      dataIndex: 'director',
+      key: 'director',
+      render: (director) => director,
     },
     {
-      title: 'Số ghế',
-      dataIndex: 'seats',
-      key: 'seats',
-      render: (seats) => seats?.length,
+      title: 'Diễn viên',
+      dataIndex: 'actor',
+      key: 'actor',
+      render: (actor) => actor,
     },
+    {
+      title: 'Nội dung',
+      dataIndex: 'content',
+      key: 'content',
+      render: (content) => content,
+    },
+    {
+      title: 'Ghi chú',
+      dataIndex: 'excerpt',
+      key: 'excerpt',
+      render: (excerpt) => excerpt,
+    },
+    {
+      title: 'Ảnh nhỏ',
+      dataIndex: 'thumbnail',
+      key: 'thumbnail',
+      render: (thumbnail) => <img src={thumbnail} alt="Thumbnail" style={{ width: '100px' }} />,
+    },
+    
     {
       title: 'Published',
       dataIndex: 'createdAt',
@@ -43,13 +62,16 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       render: (value) => dayjs(value).format(FORMAT_TIME_DEFAULT),
     },
     {
+      title: 'trailerUrl',
+      dataIndex: 'trailerUrl',
+      key: 'trailerUrl',
+      render: (trailerUrl) => trailerUrl,
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Button type="link" onClick={() => navigate(`/room/${record._id}/seats`)}>
-            Quản lý ghế
-          </Button>
           <Button type="link" onClick={() => navigate(`/room/${record._id}`)}>
             Detail
           </Button>
