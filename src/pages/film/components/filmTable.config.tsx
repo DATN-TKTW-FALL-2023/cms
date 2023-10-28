@@ -83,7 +83,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Button type="link" onClick={() => navigate(`/film/${record._id}`)}>
+          <Button type="link" onClick={() => navigate(`/room/${record._id}`)}>
             Detail
           </Button>
           <Popconfirm

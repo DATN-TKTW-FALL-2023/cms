@@ -3,7 +3,7 @@ import { TResApi, TResApiErr, TResDataListApi } from '@configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { notification } from 'antd'
 import { useMutation, useQuery } from 'react-query'
-
+import { removeFilmById } from '../apis'
 import { queryClient } from '..'
 import {
           createFilm,
@@ -45,5 +45,18 @@ export const useQueryListFilm = (params: TQueryLayout, token?: string) => {
               { enabled: !!accessToken },
           )
       }
-
+/**
+ * @method useMutationRemoveRoomById
+ * @returns
+ */
+export const useMutationRemoveFilmById = () =>
+    useMutation(removeFilmById, {
+        onSuccess: (res: TResApi) => {
+            queryClient.refetchQueries([LIST_FILM])
+            notification.success({ message: NSuccess, description: res?.message })
+        },
+        onError: (error: TResApiErr) => {
+            notification.error({ message: NError, description: error?.message })
+        },
+    })
 
