@@ -2,35 +2,22 @@ import HeadHtml from '@components/layout/HeadHtml'
 import FormSidebar from '@components/layout/FormSidebar'
 import ActionPublish from '@components/widgets/ActionPublish'
 import PageHeader from '@components/widgets/PageHeader'
-import { Badge, Card, Col, Collapse, Form, Input, Row, Select, Space } from 'antd'
-import {
-  useQueryListLayout,
-  useQueryTaxonomyMakeTree,
-  useMutationCreateFilm,
-} from '@src/queries/hooks'
+import { Card, Col, Collapse, Form, Input, Row, Space } from 'antd'
+import { useQueryTaxonomyMakeTree, useMutationCreateFilm } from '@src/queries/hooks'
 import { checkAuth } from '@src/libs/localStorage'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { TCreatePost, TQueryLayout } from '@src/modules'
-import { EOrder, EOrderBy } from '@src/configs/interface.config'
+import { TCreatePost } from '@src/modules'
 import SelectTreeInput from '@src/components/widgets/SelectTreeInput'
 import SelectSingleFileFormItem from '@src/components/widgets/SelectSingleFileFormItem'
 import { PlusOutlined } from '@ant-design/icons'
-const LIMIT = 20
+import { labelStyle } from '@src/configs/const.config'
+import TinymceInput from '@src/components/widgets/TinymceInput'
 
 function CreateFilm() {
   const token = checkAuth()
   const navigate = useNavigate()
   const [form] = Form.useForm<TCreatePost>()
-  const [params, setParams] = useState<TQueryLayout>({
-    page: 1,
-    limit: LIMIT,
-    order: EOrder.DESC,
-    orderBy: EOrderBy.CREATED_DATE,
-  })
-  const {
-    isLoading: isLoadingListLayout,
-  } = useQueryListLayout(params, token)
 
   const {
     data: taxonomyMakeTreeData,
@@ -45,24 +32,25 @@ function CreateFilm() {
   const { mutate: mutateCreateFilm, isLoading: isLoadingCreateRoom } = useMutationCreateFilm()
 
   const onFinish = (values: any) => {
-    console.log(values);
+    console.log(values)
     mutateCreateFilm(values, {
       onSuccess: () => {
-        console.log(values);
+        navigate('/list-film')
       },
     })
   }
 
   return (
     <Col span={24}>
-      <HeadHtml title="Thêm Phòng Chiếu" />
-      <FormSidebar onFinish={onFinish} form={form} isLoading={isLoadingListLayout}>
+      <HeadHtml title="Thêm Film" />
+      <FormSidebar onFinish={onFinish} form={form}>
         <>
           <FormSidebar.Content>
-            <Card hoverable title={<PageHeader title="Thêm Phòng Chiếu" isSearch={false} inCard />}>
+            <Card hoverable title={<PageHeader title="Thêm Film" isSearch={false} inCard />}>
               <Form.Item
                 name="name"
                 label="Tên phim"
+                {...labelStyle}
                 rules={[
                   {
                     required: true,
@@ -72,67 +60,20 @@ function CreateFilm() {
               >
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item
-                name="director"
-                label="Đạo diễn"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Đạo diễn là bắt buộc!',
-                  },
-                ]}
-              >
+              <Form.Item name="director" label="Đạo diễn" {...labelStyle}>
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item
-                name="actor"
-                label="Diễn Viên"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Diễn Viên là bắt buộc!',
-                  },
-                ]}
-              >
+              <Form.Item name="actor" {...labelStyle} label="Diễn Viên">
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item
-                name="content"
-                label="Nội dung"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Nội dung phim bắt buộc!',
-                  },
-                ]}
-              >
+              <Form.Item name="content" {...labelStyle} label="Nội dung">
+                <TinymceInput {...labelStyle} onEditorChange={(v) => form.setFieldsValue({ content: v })} h={400} />
+              </Form.Item>
+              <Form.Item name="trailerUrl" {...labelStyle} label="trailerUrl">
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item
-                name="trailerUrl"
-                label="trailerUrl"
-                rules={[
-                  {
-                    required: true,
-                    message: 'trailerUrl phim bắt buộc!',
-                  },
-                ]}
-              >
-                <Input placeholder="Please enter title" />
-              </Form.Item>
-              <Form.Item name="excerpt" label="Ghi chú">
+              <Form.Item name="excerpt" label="Ghi chú" {...labelStyle}>
                 <Input.TextArea placeholder="Please enter excerpt" rows={4} />
-              </Form.Item>
-
-              <Form.Item label="Trạng thái" name="status">
-                <Select>
-                  <Select.Option value="active">
-                    <Badge status="success" text="ACTIVE" />
-                  </Select.Option>
-                  <Select.Option value="inactive">
-                    <Badge status="error" text="INACTIVE" />
-                  </Select.Option>
-                </Select>
               </Form.Item>
             </Card>
           </FormSidebar.Content>
@@ -140,7 +81,7 @@ function CreateFilm() {
             <Row gutter={[0, 24]}>
               <Col span={24}>
                 <ActionPublish
-                  showInput={{ scheduleAt: true }}
+                  showInput={{ scheduleAt: true, status: true }}
                   onPublish={() => form.submit()}
                   loadingPublish={isLoadingCreateRoom}
                 />
@@ -170,7 +111,14 @@ function CreateFilm() {
               <Col span={24}>
                 <Collapse defaultActiveKey={['1']} expandIconPosition="end">
                   <Collapse.Panel header="Thumbnail" key="1">
-                    <SelectSingleFileFormItem form={form} name="thumbnailId" />
+                    <SelectSingleFileFormItem form={form} name="thumbnail" />
+                  </Collapse.Panel>
+                </Collapse>
+              </Col>
+              <Col span={24}>
+                <Collapse defaultActiveKey={['1']} expandIconPosition="end">
+                  <Collapse.Panel header="Trailer" key="1">
+                    <SelectSingleFileFormItem form={form} name="trailer" />
                   </Collapse.Panel>
                 </Collapse>
               </Col>

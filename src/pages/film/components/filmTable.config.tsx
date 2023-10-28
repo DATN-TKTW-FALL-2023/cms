@@ -3,12 +3,13 @@ import { TTaxonomyMakeTree } from '@src/modules'
 import { queryClient } from '@src/queries'
 import { useMutationRemoveFilmById } from '@src/queries/hooks'
 import { LIST_FILM } from '@src/queries/keys'
-import { Popconfirm, Button, Space, Typography } from 'antd'
+import { Popconfirm, Button, Space, Typography, Image } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
 import { Link, useNavigate } from 'react-router-dom'
+import placeholderImage from '@assets/placeholder-image.jpeg'
 
-export const columnsTableLayout = (prefixDetailUrl: string, postType: string): ColumnsType<TTaxonomyMakeTree> => {
+export const columnsTableFilm = (): ColumnsType<TTaxonomyMakeTree> => {
   const navigate = useNavigate()
   const { mutate } = useMutationRemoveFilmById()
   return [
@@ -18,11 +19,12 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'name',
       render(name, record) {
         return (
-          <Link to={`/${prefixDetailUrl}/${record._id}`}>
+          <Link to={`/film/${record._id}`}>
             <Typography.Text>{name}</Typography.Text>
           </Link>
         )
       },
+      sorter: true,
     },
     {
       title: 'Đạo diễn',
@@ -52,7 +54,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       title: 'Ảnh nhỏ',
       dataIndex: 'thumbnail',
       key: 'thumbnail',
-      render: (thumbnail) => <img src={thumbnail} alt="Thumbnail" style={{ width: '100px' }} />,
+      render: (v) => <Image width={70} height={70} src={v?.location || placeholderImage} preview />,
     },
     {
       title: 'Phân loại phim',
@@ -60,7 +62,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'taxonomies',
       render: (taxonomies) => (
         <>
-          {taxonomies.map((taxonomy:any) => (
+          {taxonomies.map((taxonomy: any) => (
             <span key={taxonomy._id}>{taxonomy.name}</span>
           ))}
         </>
@@ -68,15 +70,10 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
     },
     {
       title: 'Published',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
+      dataIndex: 'scheduleAt',
+      key: 'scheduleAt',
       render: (value) => dayjs(value).format(FORMAT_TIME_DEFAULT),
-    },
-    {
-      title: 'trailerUrl',
-      dataIndex: 'trailerUrl',
-      key: 'trailerUrl',
-      render: (trailerUrl) => trailerUrl,
+      sorter: true,
     },
     {
       title: 'Action',
@@ -92,7 +89,7 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
             onConfirm={() =>
               mutate(record._id, {
                 onSuccess: () => {
-                  queryClient.refetchQueries([LIST_FILM, postType])
+                  queryClient.invalidateQueries([LIST_FILM])
                 },
               })
             }
@@ -104,4 +101,3 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
     },
   ]
 }
-
