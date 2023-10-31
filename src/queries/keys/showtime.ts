@@ -1,0 +1,2 @@
+export const LIST_SHOWTIME = 'LIST_SHOWTIME'
+export const DETAIL_SHOWTIME = 'DETAIL_SHOWTIME'

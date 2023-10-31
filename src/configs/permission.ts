@@ -48,5 +48,6 @@ export enum ACCESS {
   VIEW_ROOM = 'VIEW_ROOM',
   UPDATE_ROOM = 'UPDATE_ROOM',
   DELETE_ROOM = 'DELETE_ROOM',
-
+  // Showtime module
+  VIEW_SHOWTIME = 'VIEW_SHOWTIME',
 }

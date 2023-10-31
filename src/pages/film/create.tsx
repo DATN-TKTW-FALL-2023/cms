@@ -2,7 +2,7 @@ import HeadHtml from '@components/layout/HeadHtml'
 import FormSidebar from '@components/layout/FormSidebar'
 import ActionPublish from '@components/widgets/ActionPublish'
 import PageHeader from '@components/widgets/PageHeader'
-import { Card, Col, Collapse, Form, Input, Row, Space } from 'antd'
+import { Card, Col, Collapse, Form, Input, InputNumber, Row, Space } from 'antd'
 import { useQueryTaxonomyMakeTree, useMutationCreateFilm } from '@src/queries/hooks'
 import { checkAuth } from '@src/libs/localStorage'
 import { useMemo } from 'react'
@@ -35,7 +35,7 @@ function CreateFilm() {
     console.log(values)
     mutateCreateFilm(values, {
       onSuccess: () => {
-        navigate('/list-film')
+        navigate('/film')
       },
     })
   }
@@ -62,6 +62,9 @@ function CreateFilm() {
               </Form.Item>
               <Form.Item name="director" label="Đạo diễn" {...labelStyle}>
                 <Input placeholder="Please enter title" />
+              </Form.Item>
+              <Form.Item name="duration" label="Thời gian chiếu" {...labelStyle}>
+                <InputNumber placeholder="Please enter title" />
               </Form.Item>
               <Form.Item name="actor" {...labelStyle} label="Diễn Viên">
                 <Input placeholder="Please enter title" />
