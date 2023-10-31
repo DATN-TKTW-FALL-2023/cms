@@ -40,7 +40,7 @@ function DetailFilm() {
     [listLayout, isLoadingListLayout, isFetchingListLayout],
   )
 
-  const { mutate: mutateUpdateFilm, isLoading: isLoadingCreateRoom } = useMutationUpdateRoomById()
+  const { mutate: mutateUpdateFilm, isLoading: isLoadingCreateFilm } = useMutationUpdateFilmById()
 
   const onFinish = (values: any) => {
     if (id)
@@ -48,68 +48,100 @@ function DetailFilm() {
         { id, data: values },
         {
           onSuccess: () => {
-            navigate('/room')
+            navigate('/list-film')
           },
         },
       )
   }
-  const { data: RoomData, isLoading: isRoomDataLoading } = useQueryGetRoomById(id || '')
+  const { data: FilmData, isLoading: isFilmDataLoading } = useQueryGetFilmById(id || '')
 
   useEffect(() => {
-    if (RoomData) {
+    if (FilmData) {
       form.setFieldsValue({
-        name: RoomData?.data?.name,
-        excerpt: RoomData?.data?.excerpt,
-        status: RoomData?.data?.status,
+        name: FilmData?.data?.name,
+        director: FilmData?.data?.director,
+        actor: FilmData?.data?.actor,
+        content: FilmData?.data?.content,
+        excerpt: FilmData?.data?.excerpt,
       })
     }
-  }, [RoomData])
+  }, [FilmData])
 
   return (
     <Col span={24}>
-      <HeadHtml title="Sửa Phòng Chiếu" />
-      <FormSidebar onFinish={onFinish} form={form} isLoading={isRoomDataLoading}>
+      <HeadHtml title="Sửa Film" />
+      <FormSidebar onFinish={onFinish} form={form} isLoading={isFilmDataLoading}>
         <>
           <FormSidebar.Content>
-            <Card hoverable title={<PageHeader title="Sửa Phòng Chiếu" isSearch={false} inCard />}>
+            <Card hoverable title={<PageHeader title="Sửa Film" isSearch={false} inCard />}>
               <Form.Item
                 name="name"
-                label="Tên Phòng"
+                label="Tên Film"
                 rules={[
                   {
                     required: true,
-                    message: 'Tên phòng là bắt buộc!',
+                    message: 'Tên Film là bắt buộc!',
                   },
                 ]}
               >
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item name="excerpt" label="Ghi chú">
-                <Input.TextArea placeholder="Please enter excerpt" rows={4} />
+              <Form.Item
+                name="director"
+                label="Đạo diễn"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Tên Film là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item name="layout" label="Chọn layout">
-                <Select>
-                  {layout.map((item) => (
-                    <Select.Option value={item._id}>{item.name}</Select.Option>
-                  ))}
-                </Select>
+
+              <Form.Item
+                name="actor"
+                label="Diễn viên"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Tên Film là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item label="Trạng thái" name="status">
-                <Select>
-                  <Select.Option value="active">
-                    <Badge status="success" text="ACTIVE" />
-                  </Select.Option>
-                  <Select.Option value="inactive">
-                    <Badge status="error" text="INACTIVE" />
-                  </Select.Option>
-                </Select>
+              <Form.Item
+                name="content"
+                label="Nội dung"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Tên Film là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
               </Form.Item>
+              <Form.Item
+                name="excerpt"
+                label="Nội dung"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Tên Film là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
+              </Form.Item>
+              
             </Card>
           </FormSidebar.Content>
           <FormSidebar.Sidebar>
             <Row gutter={[0, 24]}>
               <Col span={24}>
-                <ActionPublish onPublish={() => form.submit()} loadingPublish={isLoadingCreateRoom} />
+                <ActionPublish onPublish={() => form.submit()} loadingPublish={isLoadingCreateFilm} />
               </Col>
             </Row>
           </FormSidebar.Sidebar>
