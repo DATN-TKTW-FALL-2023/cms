@@ -33,6 +33,7 @@ const DetailRoom = lazyLoading(() => import('@pages/room/detail'))
 const RoomSeats = lazyLoading(() => import('@pages/room/seats'))
 const CreateFilm = lazyLoading(() => import('@pages/film/create'))
 const ListFilm = lazyLoading(() => import('@pages/film'))
+const DetailFilm = lazyLoading(() => import('@pages/film/detail'))
 const routeConfig: TRouteConfig[] = [
   {
     path: '/',
@@ -159,6 +160,12 @@ const routeConfig: TRouteConfig[] = [
     Element: ListFilm,
     key: ACCESS.LIST_ROOM,
   },
+
+  {
+    path: '/detail-film/:id',
+    Element: DetailFilm,
+    key: ACCESS.LIST_ROOM,
+  }
 ]
 
 export default routeConfig
