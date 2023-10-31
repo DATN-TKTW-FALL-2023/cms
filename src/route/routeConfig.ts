@@ -162,7 +162,7 @@ const routeConfig: TRouteConfig[] = [
   },
 
   {
-    path: '/detail-film/:id',
+    path: '/film/:id',
     Element: DetailFilm,
     key: ACCESS.LIST_ROOM,
   }
