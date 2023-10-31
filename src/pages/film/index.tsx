@@ -1,18 +1,19 @@
 import { EOrder, EOrderBy } from '@src/configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
-import { TQueryLayout } from '@src/modules'
 import { useQueryListFilm } from '@src/queries/hooks'
-import { Col, Row, Table } from 'antd'
+import { Col, Row, Table, TablePaginationConfig } from 'antd'
 import { useMemo, useState } from 'react'
 import HeadHtml from '@src/components/layout/HeadHtml'
 import PageHeader from '@src/components/widgets/PageHeader'
 import { useNavigate } from 'react-router-dom'
-import { columnsTableLayout } from './components/filmTable.config'
+
+import { columnsTableFilm } from './components/filmTable.config'
+
 const LIMIT = 20
 
-function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
+function Film() {
   const token = checkAuth()
-  const [params, setParams] = useState<TQueryLayout>({
+  const [params, setParams] = useState<any>({
     page: 1,
     limit: LIMIT,
     order: EOrder.DESC,
@@ -20,20 +21,32 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
   })
 
   const {
-    data: listLayout,
-    isLoading: isLoadingListLayout,
-    isFetching: isFetchingListLayout,
+    data: listFilm,
+    isLoading: isLoadingListFilm,
+    isFetching: isFetchingListFilm,
   } = useQueryListFilm(params, token)
-  const listLayoutData = useMemo(() => listLayout?.data, [listLayout, isLoadingListLayout, isFetchingListLayout])
+  const listFilmData = useMemo(() => listFilm?.data, [listFilm, isLoadingListFilm, isFetchingListFilm])
   const navigate = useNavigate()
 
-  const columns = columnsTableLayout(prefixDetailUrl, postType)
+  const columns = columnsTableFilm()
+
+  const onChangeTable = (pagination: TablePaginationConfig, filters: any, sorter: any) => {
+    const newParams: any = {
+      ...params,
+      page: pagination?.current || 1,
+      limit: pagination?.pageSize || LIMIT,
+      order: !sorter?.order || sorter?.order === 'ascend' ? EOrder.DESC : EOrder.ASC,
+      orderBy: sorter && sorter?.column?.key ? sorter?.column?.key : EOrderBy.CREATED_DATE,
+    }
+    setParams(newParams)
+  }
+
   return (
     <Col span={24}>
-      <HeadHtml title="Danh Sách Phòng Chiếu" />
+      <HeadHtml title="Danh Sách Film" />
       <PageHeader
-        title="Danh Sách Phòng Chiếu"
-        extra={[{ text: 'Thêm Phòng', action: () => navigate('/list-film') }]}
+        title="Danh Sách Film"
+        extra={[{ text: 'Thêm Film', action: () => navigate('/create-film') }]}
         isSearch={false}
       />
       <Row>
@@ -41,9 +54,10 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
           <Table
             columns={columns}
             rowKey="_id"
-            dataSource={listLayoutData}
-            loading={isFetchingListLayout}
-            pagination={false}
+            dataSource={listFilmData}
+            loading={isLoadingListFilm}
+            onChange={onChangeTable}
+            // pagination={false}
             scroll={{ x: 992 }}
           />
         </Col>
@@ -52,4 +66,4 @@ function LayoutRoomScreen({ postType, prefixDetailUrl }: any) {
   )
 }
 
-export default LayoutRoomScreen
+export default Film

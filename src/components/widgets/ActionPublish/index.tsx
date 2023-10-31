@@ -1,5 +1,5 @@
 import { CalendarOutlined, ClockCircleOutlined, PushpinOutlined } from '@ant-design/icons'
-import { FORMAT_TIME_DEFAULT, STATUS_DOCUMENT_SELECT } from '@src/configs/const.config'
+import { STATUS_DOCUMENT_SELECT } from '@src/configs/const.config'
 import { EStatusDoc, TStatusDoc } from '@src/configs/interface.config'
 import { TUser } from '@src/modules'
 import { Badge, Button, Col, Collapse, DatePicker, Divider, Form, Popconfirm, Row, Select } from 'antd'
@@ -58,9 +58,8 @@ function ActionPublish({
                   disabled
                   showTime
                   allowClear={false}
-                  format={FORMAT_TIME_DEFAULT}
                   className="date-picker-input"
-                  defaultValue={dayjs(data?.createdAt || new Date(), FORMAT_TIME_DEFAULT)}
+                  defaultValue={dayjs(data?.createdAt || new Date())}
                 />
               </Col>
             </Row>
@@ -72,17 +71,8 @@ function ActionPublish({
                   <ClockCircleOutlined style={{ marginTop: 9 }} />
                 </Col>
                 <Col flex="1">
-                  <Form.Item
-                    name="scheduleAt"
-                    initialValue={dayjs(data?.scheduleAt || new Date(), FORMAT_TIME_DEFAULT)}
-                  >
-                    <DatePicker
-                      showTime
-                      allowClear={false}
-                      format={FORMAT_TIME_DEFAULT}
-                      className="date-picker-input"
-                      placeholder="Schedule time"
-                    />
+                  <Form.Item name="scheduleAt" initialValue={dayjs(data?.scheduleAt || new Date())}>
+                    <DatePicker showTime allowClear={false} className="date-picker-input" placeholder="Schedule time" />
                   </Form.Item>
                 </Col>
               </Row>

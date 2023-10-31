@@ -3,22 +3,22 @@ import { TResApi, TResApiErr, TResDataListApi } from '@configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { notification } from 'antd'
 import { useMutation, useQuery } from 'react-query'
+import { TQueryLayout } from '@src/modules'
 
 import { queryClient } from '..'
 import {
-    createLayout,
-    createRoom,
-    getLayoutById,
-    getListLayout,
-    getListRoom,
-    getRoomById,
-    removeLayoutById,
-    removeRoomById,
-    updateLayoutById,
-    updateRoomById,
+  createLayout,
+  createRoom,
+  getLayoutById,
+  getListLayout,
+  getListRoom,
+  getRoomById,
+  removeLayoutById,
+  removeRoomById,
+  updateLayoutById,
+  updateRoomById,
 } from '../apis'
 import { DETAIL_LAYOUT, DETAIL_ROOM, LIST_LAYOUT, LIST_ROOM } from '../keys'
-import { TQueryLayout } from '@src/modules'
 
 /**
  *
@@ -26,16 +26,16 @@ import { TQueryLayout } from '@src/modules'
  * @returns
  */
 export const useMutationCreateLayout = () =>
-    useMutation(createLayout, {
-        onSuccess: (res: TResApi<any>) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            // [TODO] ...
-            notification.error({ message: NError, description: error?.message })
-        },
-    })
+  useMutation(createLayout, {
+    onSuccess: (res: TResApi<any>) => {
+      queryClient.refetchQueries([LIST_LAYOUT])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      // [TODO] ...
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useQueryListLayout
@@ -44,12 +44,10 @@ export const useMutationCreateLayout = () =>
  * @returns
  */
 export const useQueryListLayout = (params: TQueryLayout, token?: string) => {
-    const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>(
-        [LIST_LAYOUT],
-        () => getListLayout(params, accessToken),
-        { enabled: !!accessToken },
-    )
+  const accessToken = token || checkAuth()
+  return useQuery<TResDataListApi<any[]>>([LIST_LAYOUT], () => getListLayout(params, accessToken), {
+    enabled: !!accessToken,
+  })
 }
 
 /**
@@ -57,15 +55,15 @@ export const useQueryListLayout = (params: TQueryLayout, token?: string) => {
  * @returns
  */
 export const useMutationRemoveLayoutById = () =>
-    useMutation(removeLayoutById, {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        },
-    })
+  useMutation(removeLayoutById, {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([LIST_LAYOUT])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useMutationUpdateLayoutById
@@ -73,15 +71,15 @@ export const useMutationRemoveLayoutById = () =>
  */
 
 export const useMutationUpdateLayoutById = () =>
-    useMutation(({ id, data }: { id: string; data: any }) => updateLayoutById(id, data), {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_LAYOUT, LIST_ROOM])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        }
-    })
+  useMutation(({ id, data }: { id: string; data: any }) => updateLayoutById(id, data), {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([LIST_LAYOUT, LIST_ROOM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useQueryGetLayoutById
@@ -89,37 +87,34 @@ export const useMutationUpdateLayoutById = () =>
  * @returns
  */
 
-export const useQueryGetLayoutById = (id: string) => {
-    return useQuery<TResApi<any>>([DETAIL_LAYOUT, id], () => getLayoutById(id), { enabled: !!id })
-}
+export const useQueryGetLayoutById = (id: string) =>
+  useQuery<TResApi<any>>([DETAIL_LAYOUT, id], () => getLayoutById(id), { enabled: !!id })
 
-//room
+// room
 
 export const useMutationCreateRoom = () =>
-    useMutation(createRoom, {
-        onSuccess: (res: TResApi<any>) => {
-            queryClient.refetchQueries([LIST_LAYOUT])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            // [TODO] ...
-            notification.error({ message: NError, description: error?.message })
-        },
-    })
+  useMutation(createRoom, {
+    onSuccess: (res: TResApi<any>) => {
+      queryClient.refetchQueries([LIST_LAYOUT])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      // [TODO] ...
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useQueryListRoom
  * @param {TQueryLayout}params
  * @param {string}token
  * @returns
-    */
+ */
 export const useQueryListRoom = (params: any, token?: string) => {
-    const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>(
-        [LIST_ROOM],
-        () => getListRoom(params, accessToken),
-        { enabled: !!accessToken },
-    )
+  const accessToken = token || checkAuth()
+  return useQuery<TResDataListApi<any[]>>([LIST_ROOM], () => getListRoom(params, accessToken), {
+    enabled: !!accessToken,
+  })
 }
 
 /**
@@ -127,31 +122,30 @@ export const useQueryListRoom = (params: any, token?: string) => {
  * @returns
  */
 export const useMutationRemoveRoomById = () =>
-    useMutation(removeRoomById, {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_ROOM])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        },
-    })
+  useMutation(removeRoomById, {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([LIST_ROOM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useMutationUpdateRoomById
  * @returns
  */
-export const useMutationUpdateRoomById = () => {
-    return useMutation(({ id, data }: { id: string; data: any }) => updateRoomById(id, data), {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_ROOM])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        }
-    })
-}
+export const useMutationUpdateRoomById = () =>
+  useMutation(({ id, data }: { id: string; data: any }) => updateRoomById(id, data), {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([LIST_ROOM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 /**
  * @method useQueryGetRoomById
@@ -159,7 +153,5 @@ export const useMutationUpdateRoomById = () => {
  * @returns
  */
 
-export const useQueryGetRoomById = (id: string) => {
-    return useQuery<TResApi<any>>([DETAIL_ROOM, id], () => getRoomById(id), { enabled: !!id })
-}
-
+export const useQueryGetRoomById = (id: string) =>
+  useQuery<TResApi<any>>([DETAIL_ROOM, id], () => getRoomById(id), { enabled: !!id })

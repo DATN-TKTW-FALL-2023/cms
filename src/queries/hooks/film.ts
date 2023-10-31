@@ -3,6 +3,7 @@ import { TResApi, TResApiErr, TResDataListApi } from '@configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { notification } from 'antd'
 import { useMutation, useQuery } from 'react-query'
+
 import { getFilmById, removeFilmById, updateFilmById } from '../apis'
 import { queryClient } from '..'
 import {
@@ -13,38 +14,36 @@ import {
 import { TQueryLayout } from '@src/modules'
 import { DETAIL_FILM, LIST_FILM } from '../keys'
 
+
 /**
  *
  * @method useMutationCreateFilm
  * @returns
  */
 export const useMutationCreateFilm = () =>
-          useMutation(createFilm, {
-                    onSuccess: (res: TResApi<any>) => {
-                              queryClient.refetchQueries([LIST_FILM])
-                              notification.success({ message: NSuccess, description: res?.message })
-                    },
-                    onError: (error: TResApiErr) => {
-                              // [TODO] ...
-                              notification.error({ message: NError, description: error?.message })
-                    },
-          })
+  useMutation(createFilm, {
+    onSuccess: (res: TResApi<any>) => {
+      queryClient.refetchQueries([LIST_FILM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      // [TODO] ...
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
-
-          /**
+/**
  * @method useQueryListFilm
  * @param {TQueryLayout}params
  * @param {string}token
  * @returns
  */
 export const useQueryListFilm = (params: TQueryLayout, token?: string) => {
-          const accessToken = token || checkAuth()
-          return useQuery<TResDataListApi<any[]>>(
-              [LIST_FILM],
-              () => getListFilm(params, accessToken),
-              { enabled: !!accessToken },
-          )
-      }
+  const accessToken = token || checkAuth()
+  return useQuery<TResDataListApi<any[]>>([LIST_FILM, JSON.stringify(params)], () => getListFilm(params, accessToken), {
+    enabled: !!accessToken,
+  })
+}
 /**
  * @method useMutationRemoveRoomById
  * @returns

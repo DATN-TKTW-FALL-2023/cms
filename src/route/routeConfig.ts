@@ -114,7 +114,7 @@ const routeConfig: TRouteConfig[] = [
     key: ACCESS.LIST_TAXONOMY,
   },
 
-  //room
+  // room
   {
     path: '/layout-room',
     Element: LayoutRoom,
@@ -160,6 +160,7 @@ const routeConfig: TRouteConfig[] = [
     Element: ListFilm,
     key: ACCESS.LIST_ROOM,
   },
+
   {
     path: '/detail-film/:id',
     Element: DetailFilm,
