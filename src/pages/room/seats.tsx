@@ -8,8 +8,6 @@ import { checkAuth } from '@src/libs/localStorage'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { TCreatePost, TQueryLayout } from '@src/modules'
-import { EOrder, EOrderBy } from '@src/configs/interface.config'
-import Grid from 'antd/es/card/Grid'
 const LIMIT = 20
 
 function RoomSeats() {

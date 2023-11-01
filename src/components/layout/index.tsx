@@ -67,13 +67,13 @@ function LayoutApp({ children }: ILayoutApp) {
         getItem(<Link to="/create-room">Thêm Phòng</Link>, 'create-room', ACCESS.CREATE_ROOM, permissions),
       ]),
       getItem('Quản lý phim', 'postG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/list-film">Quản lí phim</Link>, 'list-film', ACCESS.LIST_ROOM, permissions),
+        getItem(<Link to="/film">Quản lí phim</Link>, 'film', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/create-film">Thêm Phim</Link>, 'create-film', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/category">Danh mục phim</Link>, 'category', ACCESS.LIST_TAXONOMY, permissions),
       ]),
-      getItem('Quản lý xuất chiếu', 'postG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/list">Danh sách xuất chiếu</Link>, 'list', ACCESS.LIST_ROOM, permissions),
-        getItem(<Link to="/create">Thêm xuất chiếu</Link>, 'create', ACCESS.LIST_ROOM, permissions),
+      getItem('Quản lý suất chiếu', 'showTimeG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
+        getItem(<Link to="/showtime">Danh sách suất chiếu</Link>, 'list', ACCESS.LIST_ROOM, permissions),
+        getItem(<Link to="/create">Thêm suất chiếu</Link>, 'create', ACCESS.LIST_ROOM, permissions),
       ]),
       getItem(<Link to="/media">Media</Link>, 'media', ACCESS.LIST_MEDIAS, permissions, <FolderAddOutlined />),
       getItem('User', 'userG', ACCESS.LIST_USERS, permissions, <UserOutlined />, [
