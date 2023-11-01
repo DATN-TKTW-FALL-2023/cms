@@ -168,7 +168,7 @@ const routeConfig: TRouteConfig[] = [
     key: ACCESS.VIEW_SHOWTIME,
   },
   {
-    path: '/detail-film/:id',
+    path: '/film/:id',
     Element: DetailFilm,
     key: ACCESS.LIST_ROOM,
   }

@@ -69,6 +69,19 @@ function CreateFilm() {
               <Form.Item name="actor" {...labelStyle} label="Diễn Viên">
                 <Input placeholder="Please enter title" />
               </Form.Item>
+              <Form.Item
+                name="duration"
+                label="Thời lượng"
+                {...labelStyle}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Thời lượng là bắt buộc!',
+                  },
+                ]}
+              >
+                 <Input placeholder="Please enter title" />
+              </Form.Item>
               <Form.Item name="content" {...labelStyle} label="Nội dung">
                 <TinymceInput {...labelStyle} onEditorChange={(v) => form.setFieldsValue({ content: v })} h={400} />
               </Form.Item>

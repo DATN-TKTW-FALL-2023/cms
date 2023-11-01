@@ -80,7 +80,7 @@ export const columnsTableFilm = (): ColumnsType<TTaxonomyMakeTree> => {
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Button type="link" onClick={() => navigate(`/detail-film/${record._id}`)}>
+          <Button type="link" onClick={() => navigate(`/film/${record._id}`)}>
             Detail
           </Button>
           <Popconfirm
