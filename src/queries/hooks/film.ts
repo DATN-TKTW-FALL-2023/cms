@@ -7,8 +7,8 @@ import { useMutation, useQuery } from 'react-query'
 import { getFilmById, removeFilmById, updateFilmById } from '../apis'
 import { queryClient } from '..'
 import {
-          createFilm,
-          getListFilm,
+  createFilm,
+  getListFilm,
 
 } from '../apis'
 import { TQueryLayout } from '@src/modules'
@@ -49,15 +49,15 @@ export const useQueryListFilm = (params: TQueryLayout, token?: string) => {
  * @returns
  */
 export const useMutationRemoveFilmById = () =>
-    useMutation(removeFilmById, {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_FILM])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        },
-    })
+  useMutation(removeFilmById, {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([LIST_FILM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    },
+  })
 
 
 /**
@@ -65,15 +65,15 @@ export const useMutationRemoveFilmById = () =>
  * @returns
  */
 export const useMutationUpdateFilmById = () => {
-    return useMutation(({ id, data }: { id: string; data: any }) => updateFilmById(id, data), {
-        onSuccess: (res: TResApi) => {
-            queryClient.refetchQueries([LIST_FILM])
-            notification.success({ message: NSuccess, description: res?.message })
-        },
-        onError: (error: TResApiErr) => {
-            notification.error({ message: NError, description: error?.message })
-        }
-    })
+  return useMutation(({ id, data }: { id: string; data: any }) => updateFilmById(id, data), {
+    onSuccess: (res: TResApi) => {
+      queryClient.refetchQueries([DETAIL_FILM])
+      notification.success({ message: NSuccess, description: res?.message })
+    },
+    onError: (error: TResApiErr) => {
+      notification.error({ message: NError, description: error?.message })
+    }
+  })
 }
 
 /**
@@ -83,5 +83,5 @@ export const useMutationUpdateFilmById = () => {
  */
 
 export const useQueryGetFilmById = (id: string) => {
-    return useQuery<TResApi<any>>([DETAIL_FILM, id], () => getFilmById(id), { enabled: !!id })
+  return useQuery<TResApi<any>>([DETAIL_FILM, id], () => getFilmById(id), { enabled: !!id })
 }

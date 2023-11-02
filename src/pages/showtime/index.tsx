@@ -1,6 +1,7 @@
 import HeadHtml from '@components/layout/HeadHtml'
 import PageHeader from '@components/widgets/PageHeader'
 import { EOrder, EOrderBy } from '@configs/interface.config'
+import { labelStyle } from '@src/configs/const.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { TQueryPost } from '@src/modules'
 import { useQueryListFilm, useQueryListRoom } from '@src/queries/hooks'
@@ -22,6 +23,8 @@ function ShowTime() {
     orderBy: EOrderBy.CREATED_DATE,
     s: '',
   })
+  const [listFilmLabel, setListFilmLabel] = useState<any[]>([])
+
   const {
     data: listFilmData,
     isLoading: isLoadingListFilm,
@@ -53,6 +56,14 @@ function ShowTime() {
   }
 
   const { mutate: mutateCreateShowTime, isLoading: isLoadingCreateShowTime } = useMutationCreateShowtime()
+  const filterOption = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+
+  useEffect(() => {
+    if (listFilmData?.data) {
+      setListFilmLabel(listFilmData?.data.map((item) => ({ value: item._id, label: item.name })))
+    }
+  }, [listFilm])
 
   const onFinish = (values: any) => {
     mutateCreateShowTime(values, {
@@ -85,15 +96,17 @@ function ShowTime() {
         }
       >
         <Form onFinish={onFinish}>
-          <Form.Item name="film" label="Chọn Phim">
-            <Select>
-              {listFilm.map((item) => (
-                <Select.Option value={item._id}>{item.name}</Select.Option>
-              ))}
-            </Select>
+          <Form.Item {...labelStyle} name="film" label="Chọn Phim">
+            <Select
+              showSearch
+              placeholder="Nhập tên phim"
+              optionFilterProp="children"
+              filterOption={filterOption}
+              options={listFilmLabel}
+            />
           </Form.Item>
 
-          <Form.Item name="room" label="Chọn Phòng Chiếu">
+          <Form.Item {...labelStyle} name="room" label="Chọn Phòng Chiếu">
             <Select>
               {listRoom.map((item) => (
                 <Select.Option value={item._id}>{item.name}</Select.Option>
@@ -101,22 +114,22 @@ function ShowTime() {
             </Select>
           </Form.Item>
 
-          <Form.Item label="Price" name="price">
+          <Form.Item {...labelStyle} label="Price" name="price">
             <Input type="number" />
           </Form.Item>
 
-          <Form.Item label="Day" name="day">
+          <Form.Item {...labelStyle} label="Day" name="day">
             <DatePicker />
           </Form.Item>
 
-          <Form.Item label="Start hour" name="startHour">
+          <Form.Item {...labelStyle} label="Start hour" name="startHour">
             <DatePicker showTime />
           </Form.Item>
 
-          <Form.Item label="End hour" name="endHour">
+          <Form.Item {...labelStyle} label="End hour" name="endHour">
             <DatePicker showTime />
           </Form.Item>
-          <Form.Item label="Trạng thái" name="status">
+          <Form.Item {...labelStyle} label="Trạng thái" name="status">
             <Select>
               <Select.Option value="active">
                 <Badge status="success" text="ACTIVE" />
