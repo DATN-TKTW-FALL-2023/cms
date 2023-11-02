@@ -8,7 +8,7 @@ import {
   ReadOutlined,
 } from '@ant-design/icons'
 import logoApp from '@assets/favicon.svg'
-import logoTWG from '@assets/logo-twg.svg'
+// import logoTWG from '@assets/logo-twg.svg'
 import Breadcrumb from '@components/widgets/Breadcrumb'
 import UserDropdownAuth from '@src/components/widgets/UserDropdownAuth'
 import { ACCESS } from '@src/configs/permission'
@@ -100,7 +100,7 @@ function LayoutApp({ children }: ILayoutApp) {
         <Col span={24}>
           <Row justify="space-between" align="middle">
             <Col>
-              <img src={logoApp} alt="logo" width={120} />
+              <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg"alt="logo" width={150} />
             </Col>
             <Col>
               <UserDropdownAuth />
@@ -145,7 +145,7 @@ function LayoutApp({ children }: ILayoutApp) {
           >
             {'Designed and Developer by '}
             <a href="https://twinger.vn/" target="_blank" rel="noreferrer">
-              <img src={logoTWG} alt="logo" width={90} />
+              <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg" alt="logo" width={90} />
             </a>
           </Footer>
         </Layout>
