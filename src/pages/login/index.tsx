@@ -7,8 +7,7 @@ import { checkAuth } from '@src/libs/localStorage'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutationSignIn } from '@src/queries/hooks'
-import logoApp from '@assets/favicon.svg'
-import logoTWG from '@assets/logo-twg.svg'
+
 
 function Login() {
   const [form] = Form.useForm<TSignIn>()
@@ -34,7 +33,7 @@ function Login() {
         <Row gutter={[24, 60]} align="middle" justify="center">
           <Col span={24}>
             <Row justify="center">
-              <img src={logoApp} className="logo" alt="logo" />
+              <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg" className="logo" alt="logo" />
             </Row>
           </Col>
           <Col span={24}>
@@ -101,7 +100,7 @@ function Login() {
         </Col>
         <Col>
           <a href="https://twinger.vn/" target="_blank" rel="noreferrer">
-            <img src={logoTWG} alt="logo" width={90} />
+            <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg" alt="logo" width={90} />
           </a>
         </Col>
       </Row>
