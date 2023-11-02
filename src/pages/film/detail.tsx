@@ -4,12 +4,12 @@ import ActionPublish from '@components/widgets/ActionPublish'
 import PageHeader from '@components/widgets/PageHeader'
 import { Badge, Card, Col, Collapse, Form, Input, Row, Select, Space } from 'antd'
 import {
-    useQueryListLayout,
-    useMutationCreateRoom,
-    useQueryGetRoomById,
-    useMutationUpdateRoomById,
-    useQueryGetFilmById,
-    useMutationUpdateFilmById
+  useQueryListLayout,
+  useMutationCreateRoom,
+  useQueryGetRoomById,
+  useMutationUpdateRoomById,
+  useQueryGetFilmById,
+  useMutationUpdateFilmById,
 } from '@src/queries/hooks'
 import { checkAuth } from '@src/libs/localStorage'
 import { useEffect, useMemo, useState } from 'react'
@@ -48,7 +48,7 @@ function DetailFilm() {
         { id, data: values },
         {
           onSuccess: () => {
-            navigate('/list-film')
+            navigate('/film')
           },
         },
       )
@@ -135,7 +135,6 @@ function DetailFilm() {
               >
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              
             </Card>
           </FormSidebar.Content>
           <FormSidebar.Sidebar>
