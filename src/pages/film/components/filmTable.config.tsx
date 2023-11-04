@@ -39,12 +39,6 @@ export const columnsTableFilm = (): ColumnsType<TTaxonomyMakeTree> => {
       render: (actor) => actor,
     },
     {
-      title: 'Nội dung',
-      dataIndex: 'content',
-      key: 'content',
-      render: (content) => content,
-    },
-    {
       title: 'Ghi chú',
       dataIndex: 'excerpt',
       key: 'excerpt',

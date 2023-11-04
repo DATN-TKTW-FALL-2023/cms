@@ -68,6 +68,7 @@ export const useMutationUpdateFilmById = () => {
   return useMutation(({ id, data }: { id: string; data: any }) => updateFilmById(id, data), {
     onSuccess: (res: TResApi) => {
       queryClient.refetchQueries([DETAIL_FILM])
+      queryClient.invalidateQueries([LIST_FILM])
       notification.success({ message: NSuccess, description: res?.message })
     },
     onError: (error: TResApiErr) => {
