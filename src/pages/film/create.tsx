@@ -32,7 +32,6 @@ function CreateFilm() {
   const { mutate: mutateCreateFilm, isLoading: isLoadingCreateRoom } = useMutationCreateFilm()
 
   const onFinish = (values: any) => {
-    console.log(values)
     mutateCreateFilm(values, {
       onSuccess: () => {
         navigate('/film')
