@@ -7,4 +7,5 @@ export * from './post'
 export * from './room'
 export * from './film'
 export * from './showtime'
+export * from './order'
 
