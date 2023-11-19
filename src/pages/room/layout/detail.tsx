@@ -9,6 +9,7 @@ import { LIST_LAYOUT } from '@queries/keys'
 import { Badge, Card, Col, Form, Input, InputNumber, Select } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import { labelStyle } from '@src/configs/const.config'
 
 type FieldType = {
   name?: string
@@ -56,6 +57,7 @@ function DetailLayoutRoom() {
             <FormSidebar.Content>
               <Card hoverable title={<PageHeader title="Thêm Layout Phòng Chiếu" isSearch={false} inCard />}>
                 <Form.Item<FieldType>
+                  {...labelStyle}
                   label="Tên Layout"
                   name="name"
                   rules={[{ required: true, message: 'Vui lòng điền tên!' }]}
@@ -64,6 +66,7 @@ function DetailLayoutRoom() {
                   <Input />
                 </Form.Item>
                 <Form.Item<FieldType>
+                  {...labelStyle}
                   label="Số Hàng Ghế"
                   name="row"
                   rules={[{ required: true, message: 'Vui lòng điền số hàng ghế!' }]}
@@ -72,6 +75,7 @@ function DetailLayoutRoom() {
                   <InputNumber />
                 </Form.Item>
                 <Form.Item<FieldType>
+                  {...labelStyle}
                   label="Số Ghế 1 Hàng"
                   name="column"
                   rules={[{ required: true, message: 'Vui lòng điền số ghế 1 hàng!' }]}
@@ -79,7 +83,7 @@ function DetailLayoutRoom() {
                 >
                   <InputNumber />
                 </Form.Item>
-                <Form.Item label="Trạng thái" name="status">
+                <Form.Item {...labelStyle} label="Trạng thái" name="status">
                   <Select>
                     <Select.Option value="active">
                       <Badge status="success" text="ACTIVE" />

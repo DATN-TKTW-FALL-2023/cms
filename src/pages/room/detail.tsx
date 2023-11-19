@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { TCreatePost, TQueryLayout } from '@src/modules'
 import { EOrder, EOrderBy } from '@src/configs/interface.config'
+import { labelStyle } from '@src/configs/const.config'
 const LIMIT = 20
 
 function DetailRoom() {
@@ -71,6 +72,7 @@ function DetailRoom() {
           <FormSidebar.Content>
             <Card hoverable title={<PageHeader title="Sửa Phòng Chiếu" isSearch={false} inCard />}>
               <Form.Item
+                {...labelStyle}
                 name="name"
                 label="Tên Phòng"
                 rules={[
@@ -82,17 +84,17 @@ function DetailRoom() {
               >
                 <Input placeholder="Please enter title" />
               </Form.Item>
-              <Form.Item name="excerpt" label="Ghi chú">
+              <Form.Item {...labelStyle} name="excerpt" label="Ghi chú">
                 <Input.TextArea placeholder="Please enter excerpt" rows={4} />
               </Form.Item>
-              <Form.Item name="layout" label="Chọn layout">
+              <Form.Item {...labelStyle} name="layout" label="Chọn layout">
                 <Select>
                   {layout.map((item) => (
                     <Select.Option value={item._id}>{item.name}</Select.Option>
                   ))}
                 </Select>
               </Form.Item>
-              <Form.Item label="Trạng thái" name="status">
+              <Form.Item {...labelStyle} label="Trạng thái" name="status">
                 <Select>
                   <Select.Option value="active">
                     <Badge status="success" text="ACTIVE" />

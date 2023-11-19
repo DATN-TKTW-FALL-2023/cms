@@ -20,7 +20,7 @@ function DetailFilm() {
   const token = checkAuth()
   const navigate = useNavigate()
   const { id } = useParams()
-  const [form] = Form.useForm<TCreatePost>()
+  const [form] = Form.useForm<any>()
   const [params, setParams] = useState<TQueryLayout>({
     page: 1,
     limit: LIMIT,
@@ -58,6 +58,7 @@ function DetailFilm() {
       form.setFieldsValue({
         name: FilmData?.data?.name,
         director: FilmData?.data?.director,
+        trailerUrl: FilmData?.data?.trailerUrl,
         actor: FilmData?.data?.actor,
         content: FilmData?.data?.content,
         excerpt: FilmData?.data?.excerpt,
@@ -128,6 +129,19 @@ function DetailFilm() {
                   onEditorChange={(v) => form.setFieldsValue({ content: v })}
                   h={400}
                 />
+              </Form.Item>
+              <Form.Item
+                {...labelStyle}
+                name="trailerUrl"
+                label="Trailer Url"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Trailer Url là bắt buộc!',
+                  },
+                ]}
+              >
+                <Input placeholder="Please enter title" />
               </Form.Item>
               <Form.Item
                 {...labelStyle}
