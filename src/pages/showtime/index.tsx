@@ -96,14 +96,16 @@ function ShowTime() {
           isSearch={false}
         />
         <Row>
-          <Table
-            columns={columns}
-            rowKey="_id"
-            dataSource={listShowTimeData}
-            loading={isLoadingListShowTime}
-            pagination={false}
-            scroll={{ x: 992 }}
-          />
+          <Col span={24}>
+            <Table
+              columns={columns}
+              rowKey="_id"
+              dataSource={listShowTimeData}
+              loading={isLoadingListShowTime}
+              pagination={false}
+              scroll={{ x: 992 }}
+            />
+          </Col>
         </Row>
       </Col>
       <Drawer

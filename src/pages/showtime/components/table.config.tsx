@@ -1,9 +1,8 @@
 import { FORMAT_TIME_DEFAULT } from '@src/configs/const.config'
 import { TTaxonomyMakeTree } from '@src/modules'
 import { queryClient } from '@src/queries'
-import { useMutationRemoveLayoutById } from '@src/queries/hooks'
 import { useMutationRemoveShowtimeById } from '@src/queries/hooks/showtime'
-import { LIST_LAYOUT, LIST_SHOWTIME } from '@src/queries/keys'
+import { LIST_SHOWTIME } from '@src/queries/keys'
 import { Popconfirm, Button, Space, Typography } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
@@ -28,9 +27,23 @@ export const columnsTableShowTime = (): ColumnsType<any> => {
     },
     {
       title: 'Giờ chiếu',
-      dataIndex: 'film',
-      key: 'film',
-      render: (v) => v.scheduleAt || '__',
+      key: 'startHour',
+      render: (v) => dayjs(v.startHour).format(FORMAT_TIME_DEFAULT) || '__',
+    },
+    {
+      title: 'Giờ kết thúc',
+      key: 'endHour',
+      render: (v) => dayjs(v.endHour).format(FORMAT_TIME_DEFAULT) || '__',
+    },
+    {
+      title: 'Số ghế đặt / Tổng số ghế',
+      key: 'seats',
+      render: (value) => `${value.seatsBooked?.length} /${value?.room?.seats?.length}`,
+    },
+    {
+      title: 'Phòng Chiếu',
+      key: 'room',
+      render: (value) => value.room?.name || '__',
     },
     {
       title: 'Published',
