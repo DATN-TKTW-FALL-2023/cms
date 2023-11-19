@@ -5,10 +5,11 @@ import { labelStyle } from '@src/configs/const.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { TQueryPost } from '@src/modules'
 import { useQueryListFilm, useQueryListRoom } from '@src/queries/hooks'
-import { useMutationCreateShowtime } from '@src/queries/hooks/showtime'
-import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, TablePaginationConfig } from 'antd'
+import { useMutationCreateShowtime, useQueryListShowtime } from '@src/queries/hooks/showtime'
+import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Table } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { columnsTableShowTime } from './components/table.config'
 
 const LIMIT = 20
 
@@ -46,6 +47,7 @@ function ShowTime() {
     () => (listRoomData?.data ? listRoomData?.data : []),
     [listRoomData, isLoadingListRoom, isFetchingListRoom],
   )
+  const columns = columnsTableShowTime()
 
   const showDefaultDrawer = () => {
     setOpen(true)
@@ -65,6 +67,17 @@ function ShowTime() {
     }
   }, [listFilm])
 
+  const {
+    data: listShowTime,
+    isLoading: isLoadingListShowTime,
+    isFetching: isFetchingListShowTime,
+  } = useQueryListShowtime(params, token)
+
+  const listShowTimeData = useMemo(
+    () => listShowTime?.data,
+    [listShowTime, isLoadingListShowTime, isFetchingListShowTime],
+  )
+
   const onFinish = (values: any) => {
     mutateCreateShowTime(values, {
       onSuccess: () => {
@@ -77,8 +90,21 @@ function ShowTime() {
     <>
       <Col span={24}>
         <HeadHtml title="Danh sách suất chiếu" />
-        <PageHeader title="Danh sách suất chiếu" extra={[{ text: 'Create', action: () => showDefaultDrawer() }]} />
-        <Row></Row>
+        <PageHeader
+          title="Danh sách suất chiếu"
+          extra={[{ text: 'Create', action: () => showDefaultDrawer() }]}
+          isSearch={false}
+        />
+        <Row>
+          <Table
+            columns={columns}
+            rowKey="_id"
+            dataSource={listShowTimeData}
+            loading={isLoadingListShowTime}
+            pagination={false}
+            scroll={{ x: 992 }}
+          />
+        </Row>
       </Col>
       <Drawer
         title={`Thêm suất chiếu mới`}

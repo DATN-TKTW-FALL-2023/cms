@@ -75,6 +75,7 @@ function LayoutApp({ children }: ILayoutApp) {
         getItem(<Link to="/showtime">Danh sách suất chiếu</Link>, 'list', ACCESS.LIST_ROOM, permissions),
         getItem(<Link to="/create">Thêm suất chiếu</Link>, 'create', ACCESS.LIST_ROOM, permissions),
       ]),
+      getItem(<Link to="/order">Quản lý đơn hàng</Link>, 'order', ACCESS.LIST_USERS, permissions, <ReadOutlined />),
       getItem(<Link to="/media">Media</Link>, 'media', ACCESS.LIST_MEDIAS, permissions, <FolderAddOutlined />),
       getItem('User', 'userG', ACCESS.LIST_USERS, permissions, <UserOutlined />, [
         getItem(<Link to="/user">List user</Link>, 'user', ACCESS.LIST_USERS, permissions),
@@ -100,7 +101,11 @@ function LayoutApp({ children }: ILayoutApp) {
         <Col span={24}>
           <Row justify="space-between" align="middle">
             <Col>
-              <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg"alt="logo" width={150} />
+              <img
+                src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg"
+                alt="logo"
+                width={150}
+              />
             </Col>
             <Col>
               <UserDropdownAuth />
@@ -145,7 +150,11 @@ function LayoutApp({ children }: ILayoutApp) {
           >
             {'Designed and Developer by '}
             <a href="https://twinger.vn/" target="_blank" rel="noreferrer">
-              <img src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg" alt="logo" width={90} />
+              <img
+                src="https://res.cloudinary.com/dxzkcrvi0/image/upload/v1698914782/logo_datn-02-02_tpaxhr.svg"
+                alt="logo"
+                width={90}
+              />
             </a>
           </Footer>
         </Layout>
