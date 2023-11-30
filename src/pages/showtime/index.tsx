@@ -6,10 +6,11 @@ import { checkAuth } from '@src/libs/localStorage'
 import { TQueryPost } from '@src/modules'
 import { useQueryListFilm, useQueryListRoom } from '@src/queries/hooks'
 import { useMutationCreateShowtime, useQueryListShowtime } from '@src/queries/hooks/showtime'
-import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Table } from 'antd'
+import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Table, TimePicker } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { columnsTableShowTime } from './components/table.config'
+import dayjs from 'dayjs'
 
 const LIMIT = 20
 
@@ -25,6 +26,7 @@ function ShowTime() {
     s: '',
   })
   const [listFilmLabel, setListFilmLabel] = useState<any[]>([])
+  const [form] = Form.useForm()
 
   const {
     data: listFilmData,
@@ -79,9 +81,23 @@ function ShowTime() {
   )
 
   const onFinish = (values: any) => {
-    mutateCreateShowTime(values, {
+    const { day, startHour, endHour } = values
+
+    // Kết hợp ngày và giờ thành một đối tượng moment hoặc dayjs
+    const formattedStartHour = dayjs(startHour, 'HH:mm')
+    const formattedEndHour = dayjs(endHour, 'HH:mm')
+
+    const startDateTime = dayjs(day.format('YYYY-MM-DD'))
+      .set('hour', formattedStartHour.hour())
+      .set('minute', formattedStartHour.minute())
+    const endDateTime = dayjs(day.format('YYYY-MM-DD'))
+      .set('hour', formattedEndHour.hour())
+      .set('minute', formattedEndHour.minute())
+    const data = { ...values, startHour: startDateTime.toISOString(), endHour: endDateTime.toISOString() }
+    mutateCreateShowTime(data, {
       onSuccess: () => {
         navigate('/showtime')
+        form.resetFields()
       },
     })
   }
@@ -123,7 +139,7 @@ function ShowTime() {
           </Space>
         }
       >
-        <Form onFinish={onFinish}>
+        <Form onFinish={onFinish} form={form}>
           <Form.Item {...labelStyle} name="film" label="Chọn Phim">
             <Select
               showSearch
@@ -151,11 +167,11 @@ function ShowTime() {
           </Form.Item>
 
           <Form.Item {...labelStyle} label="Start hour" name="startHour">
-            <DatePicker showTime />
+            <TimePicker format="HH:mm" />
           </Form.Item>
 
           <Form.Item {...labelStyle} label="End hour" name="endHour">
-            <DatePicker showTime />
+            <TimePicker format="HH:mm" />
           </Form.Item>
           <Form.Item {...labelStyle} label="Trạng thái" name="status">
             <Select>
