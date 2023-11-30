@@ -1,12 +1,9 @@
 import HeadHtml from '@components/layout/HeadHtml'
 import PageHeader from '@components/widgets/PageHeader'
 import { EOrder, EOrderBy } from '@configs/interface.config'
-import { labelStyle } from '@src/configs/const.config'
 import { checkAuth } from '@src/libs/localStorage'
-import { TQueryPost } from '@src/modules'
-import { useQueryListFilm, useQueryListRoom } from '@src/queries/hooks'
 import { useQueryListOrder } from '@src/queries/hooks'
-import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Table } from 'antd'
+import { Col, Row, Table, TablePaginationConfig } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { columnsTableOrder } from './components/table.config'
@@ -16,15 +13,12 @@ const LIMIT = 20
 function Order() {
   const navigate = useNavigate()
   const token = checkAuth()
-  const [params, setParams] = useState<TQueryPost>({
+  const [params, setParams] = useState<any>({
     page: 1,
     limit: LIMIT,
     order: EOrder.DESC,
     orderBy: EOrderBy.CREATED_DATE,
-    s: '',
   })
-
-  const columns = columnsTableOrder()
 
   const {
     data: listOrder,
@@ -33,6 +27,20 @@ function Order() {
   } = useQueryListOrder(params, token)
 
   const listOrderData = useMemo(() => listOrder?.data, [listOrder, isLoadingListOrder, isFetchingListOrder])
+  const total = useMemo(() => listOrder?.total || 0, [listOrder, isLoadingListOrder, isFetchingListOrder])
+
+  const onChangeTable = (pagination: TablePaginationConfig, filters: any, sorter: any) => {
+    console.log('vcl')
+    const newParams: any = {
+      ...params,
+      page: pagination?.current || 1,
+      limit: pagination?.pageSize || LIMIT,
+      order: !sorter?.order || sorter?.order === 'ascend' ? EOrder.DESC : EOrder.ASC,
+      orderBy: sorter && sorter?.column?.key ? sorter?.column?.key : EOrderBy.CREATED_DATE,
+    }
+    setParams(newParams)
+  }
+  const columns = columnsTableOrder()
 
   return (
     <>
@@ -46,8 +54,15 @@ function Order() {
               rowKey="_id"
               dataSource={listOrderData}
               loading={isLoadingListOrder}
-              pagination={false}
+              pagination={{
+                pageSize: params?.limit || LIMIT,
+                total,
+                current: params?.page || 1,
+                pageSizeOptions: ['20', '40', '60', '80', '100'],
+                showSizeChanger: true,
+              }}
               scroll={{ x: 992 }}
+              onChange={onChangeTable}
             />
           </Col>
         </Row>

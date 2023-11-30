@@ -14,7 +14,7 @@ import { getListOrder, getOrderById, patchOrderById, removeOrderById } from '../
 
 export const useQueryListOrder = (params: any, token?: string) => {
     const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>([LIST_ORDER], () => getListOrder(params, accessToken), {
+    return useQuery<TResDataListApi<any[]>>([LIST_ORDER, JSON.stringify(params)], () => getListOrder(params, accessToken), {
         enabled: !!accessToken,
     })
 }
