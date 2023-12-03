@@ -50,7 +50,7 @@ function RoomSeats() {
             <Card hoverable title={<PageHeader title="Quản lý ghế" isSearch={false} inCard />}>
               <Row gutter={[16, 16]}>
                 {RoomData?.data?.seats?.map((seat: any, index: any) => (
-                  <Col key={index} span={4}>
+                  <Col key={index} span={33.3333}>
                     <Card className={`seat ${seat}`} hoverable={seat === 'inactive'} onClick={() => {}}>
                       {seat.name}
                     </Card>

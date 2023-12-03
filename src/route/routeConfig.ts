@@ -34,6 +34,7 @@ const RoomSeats = lazyLoading(() => import('@pages/room/seats'))
 const CreateFilm = lazyLoading(() => import('@pages/film/create'))
 const ListFilm = lazyLoading(() => import('@pages/film'))
 const ShowTime = lazyLoading(() => import('@pages/showtime'))
+const DetailShowtime = lazyLoading(() => import('@pages/showtime/detail'))
 const ListOrder = lazyLoading(() => import('@pages/order'))
 
 const DetailFilm = lazyLoading(() => import('@pages/film/detail'))
@@ -167,6 +168,11 @@ const routeConfig: TRouteConfig[] = [
     path: '/showtime',
     Element: ShowTime,
     key: ACCESS.VIEW_SHOWTIME,
+  },
+  {
+    path: '/showtime/:id',
+    Element: DetailShowtime,
+    key: ACCESS.LIST_ROOM,
   },
   {
     path: '/film/:id',
