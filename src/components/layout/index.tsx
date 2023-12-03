@@ -73,7 +73,6 @@ function LayoutApp({ children }: ILayoutApp) {
       ]),
       getItem('Quản lý suất chiếu', 'showTimeG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
         getItem(<Link to="/showtime">Danh sách suất chiếu</Link>, 'list', ACCESS.LIST_ROOM, permissions),
-        getItem(<Link to="/create">Thêm suất chiếu</Link>, 'create', ACCESS.LIST_ROOM, permissions),
       ]),
       getItem(<Link to="/order">Quản lý đơn hàng</Link>, 'order', ACCESS.LIST_USERS, permissions, <ReadOutlined />),
       getItem(<Link to="/media">Media</Link>, 'media', ACCESS.LIST_MEDIAS, permissions, <FolderAddOutlined />),
