@@ -30,7 +30,6 @@ function Order() {
   const total = useMemo(() => listOrder?.total || 0, [listOrder, isLoadingListOrder, isFetchingListOrder])
 
   const onChangeTable = (pagination: TablePaginationConfig, filters: any, sorter: any) => {
-    console.log('vcl')
     const newParams: any = {
       ...params,
       page: pagination?.current || 1,

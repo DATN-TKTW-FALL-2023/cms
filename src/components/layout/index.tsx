@@ -67,20 +67,26 @@ function LayoutApp({ children }: ILayoutApp) {
         getItem(<Link to="/create-room">Thêm Phòng</Link>, 'create-room', ACCESS.CREATE_ROOM, permissions),
       ]),
       getItem('Quản lý phim', 'postG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/film">Quản lí phim</Link>, 'film', ACCESS.LIST_ROOM, permissions),
-        getItem(<Link to="/create-film">Thêm Phim</Link>, 'create-film', ACCESS.LIST_ROOM, permissions),
+        getItem(<Link to="/film">Quản lí phim</Link>, 'film', ACCESS.LIST_FILM, permissions),
+        getItem(<Link to="/create-film">Thêm Phim</Link>, 'create-film', ACCESS.LIST_FILM, permissions),
         getItem(<Link to="/category">Danh mục phim</Link>, 'category', ACCESS.LIST_TAXONOMY, permissions),
       ]),
-      getItem('Quản lý suất chiếu', 'showTimeG', ACCESS.LIST_ROOM, permissions, <ReadOutlined />, [
-        getItem(<Link to="/showtime">Danh sách suất chiếu</Link>, 'list', ACCESS.LIST_ROOM, permissions),
+      getItem('Quản lý suất chiếu', 'showTimeG', ACCESS.LIST_FILM, permissions, <ReadOutlined />, [
+        getItem(<Link to="/showtime">Danh sách suất chiếu</Link>, 'list', ACCESS.LIST_FILM, permissions),
       ]),
       getItem(<Link to="/order">Quản lý đơn hàng</Link>, 'order', ACCESS.LIST_USERS, permissions, <ReadOutlined />),
       getItem(<Link to="/media">Media</Link>, 'media', ACCESS.LIST_MEDIAS, permissions, <FolderAddOutlined />),
       getItem('User', 'userG', ACCESS.LIST_USERS, permissions, <UserOutlined />, [
-        getItem(<Link to="/user">List user</Link>, 'user', ACCESS.LIST_USERS, permissions),
+        getItem(<Link to="/user">Quản lý user</Link>, 'user', ACCESS.LIST_USERS, permissions),
         getItem(<Link to="/create-user">Create user</Link>, 'create-user', ACCESS.CREATE_USER, permissions),
       ]),
-      getItem(<Link to="/role">Role</Link>, 'role', ACCESS.LIST_ROLES, permissions, <SafetyCertificateOutlined />),
+      getItem(
+        <Link to="/role">Quản lý phân quyền</Link>,
+        'role',
+        ACCESS.LIST_ROLES,
+        permissions,
+        <SafetyCertificateOutlined />,
+      ),
     ],
     [permissions],
   )
