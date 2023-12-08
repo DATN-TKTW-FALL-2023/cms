@@ -34,11 +34,11 @@ export const useMutationCreateFilm = () =>
 
 /**
  * @method useQueryListFilm
- * @param {TQueryLayout}params
+ * @param {any}params
  * @param {string}token
  * @returns
  */
-export const useQueryListFilm = (params: TQueryLayout, token?: string) => {
+export const useQueryListFilm = (params: any, token?: string) => {
   const accessToken = token || checkAuth()
   return useQuery<TResDataListApi<any[]>>([LIST_FILM, JSON.stringify(params)], () => getListFilm(params, accessToken), {
     enabled: !!accessToken,

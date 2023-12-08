@@ -51,7 +51,7 @@ export const columnsTableOrder = (): ColumnsType<any> => {
       title: 'Người đặt',
       dataIndex: 'user',
       key: 'user',
-      render: (value) => value.username || '__',
+      render: (value) => value?.username || '__',
     },
     {
       title: 'Trạng thái',
@@ -64,22 +64,6 @@ export const columnsTableOrder = (): ColumnsType<any> => {
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Popconfirm
-            placement="topRight"
-            title="Are you sure?"
-            onConfirm={() =>
-              mutateApprove(
-                { id: record._id, data: { status: 'pending' } },
-                {
-                  onSuccess: () => {
-                    queryClient.refetchQueries([LIST_ORDER])
-                  },
-                },
-              )
-            }
-          >
-            <Button type="link">Duyệt</Button>
-          </Popconfirm>
           <Popconfirm
             placement="topRight"
             title="Are you sure?"

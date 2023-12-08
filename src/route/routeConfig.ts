@@ -157,12 +157,12 @@ const routeConfig: TRouteConfig[] = [
   {
     path: '/create-film',
     Element: CreateFilm,
-    key: ACCESS.LIST_ROOM,
+    key: ACCESS.LIST_FILM,
   },
   {
     path: '/film',
     Element: ListFilm,
-    key: ACCESS.LIST_ROOM,
+    key: ACCESS.LIST_FILM,
   },
   {
     path: '/showtime',
@@ -172,17 +172,17 @@ const routeConfig: TRouteConfig[] = [
   {
     path: '/showtime/:id',
     Element: DetailShowtime,
-    key: ACCESS.LIST_ROOM,
+    key: ACCESS.LIST_FILM,
   },
   {
     path: '/film/:id',
     Element: DetailFilm,
-    key: ACCESS.LIST_ROOM,
+    key: ACCESS.LIST_FILM,
   },
   {
     path: '/order',
     Element: ListOrder,
-    key: ACCESS.LIST_ROOM,
+    key: ACCESS.LIST_FILM,
   }
 ]
 
