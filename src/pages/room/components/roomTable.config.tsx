@@ -47,9 +47,6 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
         <Space>
-          <Button type="link" onClick={() => navigate(`/room/${record._id}/seats`)}>
-            Quản lý ghế
-          </Button>
           <Button type="link" onClick={() => navigate(`/room/${record._id}`)}>
             Detail
           </Button>
