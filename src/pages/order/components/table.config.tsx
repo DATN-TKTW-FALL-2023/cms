@@ -42,6 +42,11 @@ export const columnsTableOrder = (): ColumnsType<any> => {
       render: (value) => value.room || '__',
     },
     {
+      title: 'Giá vé',
+      key: 'price',
+      render: (value) => value.price + ' VNĐ' || '__',
+    },
+    {
       title: 'Published',
       dataIndex: 'createdAt',
       key: 'createdAt',
