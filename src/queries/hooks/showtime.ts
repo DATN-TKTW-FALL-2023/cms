@@ -9,7 +9,7 @@ import { queryClient } from '..'
 
 import { LIST_SHOWTIME, DETAIL_SHOWTIME } from '../keys'
 
-import { createShowtime, getListShowtime, getShowtimeById, patchShowtimeById, removeShowtimeById } from '../apis'
+import { createShowtime, getListShowtime, getShowtimeById, getStatisticalShowtime, patchShowtimeById, removeShowtimeById } from '../apis'
 
 export const useMutationCreateShowtime = () => useMutation(createShowtime, {
     onSuccess: (res: TResApi<any>) => {
@@ -24,7 +24,14 @@ export const useMutationCreateShowtime = () => useMutation(createShowtime, {
 
 export const useQueryListShowtime = (params: any, token?: string) => {
     const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>([LIST_SHOWTIME], () => getListShowtime(params, accessToken), {
+    return useQuery<TResDataListApi<any[]>>([], () => getListShowtime(params, accessToken), {
+        enabled: !!accessToken,
+    })
+}
+
+export const useQueryStatisticalShowtime = (params: any, token?: string) => {
+    const accessToken = token || checkAuth()
+    return useQuery<TResDataListApi<any[]>>([LIST_SHOWTIME], () => getStatisticalShowtime(params, accessToken), {
         enabled: !!accessToken,
     })
 }
