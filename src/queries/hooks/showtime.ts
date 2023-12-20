@@ -24,14 +24,14 @@ export const useMutationCreateShowtime = () => useMutation(createShowtime, {
 
 export const useQueryListShowtime = (params: any, token?: string) => {
     const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>([], () => getListShowtime(params, accessToken), {
+    return useQuery<TResDataListApi<any[]>>([LIST_SHOWTIME], () => getListShowtime(params, accessToken), {
         enabled: !!accessToken,
     })
 }
 
 export const useQueryStatisticalShowtime = (params: any, token?: string) => {
     const accessToken = token || checkAuth()
-    return useQuery<TResDataListApi<any[]>>([LIST_SHOWTIME], () => getStatisticalShowtime(params, accessToken), {
+    return useQuery<TResDataListApi<any[]>>([], () => getStatisticalShowtime(params, accessToken), {
         enabled: !!accessToken,
     })
 }

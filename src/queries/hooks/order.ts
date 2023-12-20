@@ -18,6 +18,12 @@ export const useQueryListOrder = (params: any, token?: string) => {
         enabled: !!accessToken,
     })
 }
+export const useQueryListOrderToday = (params: any, token?: string) => {
+    const accessToken = token || checkAuth()
+    return useQuery<TResDataListApi<any[]>>([LIST_ORDER, JSON.stringify(params)], () => getListOrder(params, accessToken), {
+        enabled: !!accessToken,
+    })
+}
 
 export const useMutationRemoveOrderById = () => useMutation(removeOrderById, {
     onSuccess: (res: TResApi) => {

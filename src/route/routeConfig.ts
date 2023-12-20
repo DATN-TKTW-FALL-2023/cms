@@ -36,7 +36,8 @@ const ListFilm = lazyLoading(() => import('@pages/film'))
 const ShowTime = lazyLoading(() => import('@pages/showtime'))
 const DetailShowtime = lazyLoading(() => import('@pages/showtime/detail'))
 const ListOrder = lazyLoading(() => import('@pages/order'))
-
+const DetailOrder = lazyLoading(() => import('@pages/order/detail'))
+const OptionManager = lazyLoading(() => import('@pages/option'))
 const DetailFilm = lazyLoading(() => import('@pages/film/detail'))
 const routeConfig: TRouteConfig[] = [
   {
@@ -183,7 +184,17 @@ const routeConfig: TRouteConfig[] = [
     path: '/order',
     Element: ListOrder,
     key: ACCESS.LIST_FILM,
-  }
+  },
+  {
+    path: '/order/:id',
+    Element: DetailOrder,
+    key: ACCESS.LIST_FILM,
+  },
+  {
+    path: '/options',
+    Element: OptionManager,
+    key: ACCESS.CREATE_UPDATE_OPTION,
+  },
 ]
 
 export default routeConfig

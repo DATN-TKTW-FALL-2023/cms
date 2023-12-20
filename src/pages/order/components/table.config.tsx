@@ -62,27 +62,20 @@ export const columnsTableOrder = (): ColumnsType<any> => {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
-      render: (value) => value || '__',
+      render: (value) =>
+        (value == 'completed' ? (
+          <Button type="primary">Đặt thành công</Button>
+        ) : (
+          <Button type="primary" danger>
+            Không thành công
+          </Button>
+        )) || '__',
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record: TTaxonomyMakeTree) => (
-        <Space>
-          <Popconfirm
-            placement="topRight"
-            title="Are you sure?"
-            onConfirm={() =>
-              mutateDelete(record._id, {
-                onSuccess: () => {
-                  queryClient.refetchQueries([LIST_ORDER])
-                },
-              })
-            }
-          >
-            <Button type="link">Delete</Button>
-          </Popconfirm>
-        </Space>
+        <Button onClick={() => navigate(`/order/${record._id}`)}>Xem hóa đơn</Button>
       ),
     },
   ]
