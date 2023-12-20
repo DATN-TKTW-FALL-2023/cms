@@ -17,7 +17,7 @@ function GlanceCardDashboard({ moreInfo, total, label, icon }: TGlanceCardDashbo
       extra={
         <Link to={moreInfo || '/'}>
           <Space align="center">
-            More info <ArrowRightOutlined />
+            Xem Thêm <ArrowRightOutlined />
           </Space>
         </Link>
       }

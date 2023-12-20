@@ -88,7 +88,7 @@ function LayoutApp({ children }: ILayoutApp) {
         <SafetyCertificateOutlined />,
       ),
       getItem(
-        <Link to="/options">Quản lý hệ thống</Link>,
+        <Link to="/options">Quản lý chung</Link>,
         'options',
         ACCESS.CREATE_UPDATE_OPTION,
         permissions,
