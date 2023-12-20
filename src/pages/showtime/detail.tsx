@@ -5,7 +5,21 @@ import { labelStyle } from '@src/configs/const.config'
 import { EOrder, EOrderBy } from '@src/configs/interface.config'
 import { checkAuth } from '@src/libs/localStorage'
 import { useMutationUpdateShowTimeById, useQueryListRoom, useQueryShowtimeById } from '@src/queries/hooks'
-import { Badge, Button, Card, Col, ConfigProvider, DatePicker, Form, Image, Input, Row, Select, TimePicker } from 'antd'
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  ConfigProvider,
+  DatePicker,
+  Form,
+  Image,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  TimePicker,
+} from 'antd'
 import dayjs from 'dayjs'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,7 +37,8 @@ const DetailShowtime = () => {
     orderBy: EOrderBy.CREATED_DATE,
     s: '',
   })
-
+  const startHour = Form.useWatch('startHour', form)
+  const endHour = Form.useWatch('endHour', form)
   const {
     data: listRoomData,
     isLoading: isLoadingListRoom,
@@ -77,6 +92,34 @@ const DetailShowtime = () => {
         },
       )
   }
+  function range(start: any, end: any) {
+    const result = []
+    for (let i = start; i < end; i++) {
+      result.push(i)
+    }
+    return result
+  }
+
+  function disabledDate(current: any) {
+    return current && dayjs(current).isBefore(new Date(), 'day')
+  }
+
+  function disabledStartHour(current: any) {
+    if ((current && current.format('YYYY-MM-DD') === new Date(), 'day')) {
+      return {
+        disabledHours: () => range(dayjs(endHour).hour(), 24),
+      }
+    }
+  }
+
+  function disabledEndHour(current: any) {
+    if ((current && current.format('YYYY-MM-DD') === new Date(), 'day')) {
+      return {
+        disabledHours: () => range(0, dayjs(startHour).hour()),
+      }
+    }
+  }
+
   return (
     <Col span={24}>
       <HeadHtml title="Chi Tiết Suất Chiếu" />
@@ -85,7 +128,7 @@ const DetailShowtime = () => {
           <Card hoverable title={<PageHeader title="Quản lý suất chiếu" isSearch={false} inCard />}>
             <Row>
               <Col span={5}>
-                <Image width={200} src={ShowTimeData?.data?.film?.thumbnail?.location} />
+                <Image width={100} src={ShowTimeData?.data?.film?.thumbnail?.location} />
               </Col>
               <Col span={18}>
                 <h2>{ShowTimeData?.data?.film?.name}</h2>
@@ -98,19 +141,23 @@ const DetailShowtime = () => {
                 </Form.Item>
 
                 <Form.Item {...labelStyle} label="Price" name="price">
-                  <Input type="number" />
+                  <InputNumber min={1} style={{ width: '100%' }} />
                 </Form.Item>
 
                 <Form.Item {...labelStyle} label="Day" name="day">
-                  <DatePicker />
+                  <DatePicker
+                    disabledDate={(current) => {
+                      return current && current < dayjs()
+                    }}
+                  />
                 </Form.Item>
 
                 <Form.Item {...labelStyle} label="Start hour" name="startHour">
-                  <TimePicker format="HH:mm" />
+                  <TimePicker format="HH:mm" disabledDate={disabledDate} disabledTime={disabledStartHour} />
                 </Form.Item>
 
                 <Form.Item {...labelStyle} label="End hour" name="endHour">
-                  <TimePicker format="HH:mm" />
+                  <TimePicker format="HH:mm" disabledDate={disabledDate} disabledTime={disabledEndHour} />
                 </Form.Item>
                 <Form.Item {...labelStyle} label="Trạng thái" name="status">
                   <Select>

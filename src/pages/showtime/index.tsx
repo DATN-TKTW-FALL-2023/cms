@@ -158,19 +158,19 @@ function ShowTime() {
             </Select>
           </Form.Item>
 
-          <Form.Item {...labelStyle} label="Price" name="price">
+          <Form.Item {...labelStyle} label="Giá vé" name="price">
             <Input type="number" />
           </Form.Item>
 
-          <Form.Item {...labelStyle} label="Day" name="day">
+          <Form.Item {...labelStyle} label="Ngày chiếu" name="day">
             <DatePicker />
           </Form.Item>
 
-          <Form.Item {...labelStyle} label="Start hour" name="startHour">
+          <Form.Item {...labelStyle} label="Giờ bắt đầu" name="startHour">
             <TimePicker format="HH:mm" />
           </Form.Item>
 
-          <Form.Item {...labelStyle} label="End hour" name="endHour">
+          <Form.Item {...labelStyle} label="Giờ kết thúc" name="endHour">
             <TimePicker format="HH:mm" />
           </Form.Item>
           <Form.Item {...labelStyle} label="Trạng thái" name="status">
@@ -185,7 +185,7 @@ function ShowTime() {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={isLoadingCreateShowTime}>
-              Submit
+              Thêm suất chiếu
             </Button>
           </Form.Item>
         </Form>
