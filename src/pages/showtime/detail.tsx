@@ -84,7 +84,7 @@ const DetailShowtime = () => {
         <FormSidebar.Content>
           <Card hoverable title={<PageHeader title="Quản lý suất chiếu" isSearch={false} inCard />}>
             <Row>
-              <Col span={5}>
+              <Col span={6}>
                 <Image width={200} src={ShowTimeData?.data?.film?.thumbnail?.location} />
               </Col>
               <Col span={18}>
