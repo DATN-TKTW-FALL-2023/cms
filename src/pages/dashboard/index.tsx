@@ -181,7 +181,7 @@ function Dashboard() {
             {!isLoadingUserTotal && (
               <Col xl={6} lg={8} md={12} sm={24} xs={24}>
                 <GlanceCardDashboard
-                  icon={<UsergroupAddOutlined style={{ fontSize: 60 }} />}
+                  icon={<SafetyCertificateOutlined style={{ fontSize: 60 }} />}
                   label="Suất chiếu hiện tại"
                   total={
                     statisticalShowtime?.reduce((sum: any, showtime: any) => sum + showtime.showtimes.length, 0) || 0
@@ -193,7 +193,7 @@ function Dashboard() {
             {!isLoadingUserTotal && (
               <Col xl={6} lg={8} md={12} sm={24} xs={24}>
                 <GlanceCardDashboard
-                  icon={<SafetyCertificateOutlined style={{ fontSize: 60 }} />}
+                  icon={<UsergroupAddOutlined style={{ fontSize: 60 }} />}
                   label="User"
                   total={userTotal}
                   moreInfo="/user"
@@ -206,7 +206,6 @@ function Dashboard() {
                   icon={<DollarOutlined style={{ fontSize: 60 }} />}
                   label="Doanh thu 24 giờ qua"
                   total={totalPrice}
-                  moreInfo="/role"
                 />
               </Col>
             )}

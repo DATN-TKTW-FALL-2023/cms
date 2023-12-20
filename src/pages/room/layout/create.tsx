@@ -55,14 +55,14 @@ function CreateLayoutRoom() {
                   name="row"
                   rules={[{ required: true, message: 'Vui lòng điền số hàng ghế!' }]}
                 >
-                  <InputNumber />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item<FieldType>
                   label="Số Ghế 1 Hàng"
                   name="column"
                   rules={[{ required: true, message: 'Vui lòng điền số ghế 1 hàng!' }]}
                 >
-                  <InputNumber />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item label="Trạng thái" name="status">
                   <Select>

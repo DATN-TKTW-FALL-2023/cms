@@ -72,7 +72,7 @@ function DetailLayoutRoom() {
                   rules={[{ required: true, message: 'Vui lòng điền số hàng ghế!' }]}
                   initialValue={LayoutData?.data?.row}
                 >
-                  <InputNumber />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item<FieldType>
                   {...labelStyle}
@@ -81,7 +81,7 @@ function DetailLayoutRoom() {
                   rules={[{ required: true, message: 'Vui lòng điền số ghế 1 hàng!' }]}
                   initialValue={LayoutData?.data?.column}
                 >
-                  <InputNumber />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item {...labelStyle} label="Trạng thái" name="status">
                   <Select>

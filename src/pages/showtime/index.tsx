@@ -6,7 +6,21 @@ import { checkAuth } from '@src/libs/localStorage'
 import { TQueryPost } from '@src/modules'
 import { useQueryListFilm, useQueryListRoom } from '@src/queries/hooks'
 import { useMutationCreateShowtime, useQueryListShowtime } from '@src/queries/hooks/showtime'
-import { Badge, Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Table, TimePicker } from 'antd'
+import {
+  Badge,
+  Button,
+  Col,
+  DatePicker,
+  Drawer,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Space,
+  Table,
+  TimePicker,
+} from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { columnsTableShowTime } from './components/table.config'
@@ -27,7 +41,8 @@ function ShowTime() {
   })
   const [listFilmLabel, setListFilmLabel] = useState<any[]>([])
   const [form] = Form.useForm()
-
+  const [startHour, setStartHour] = useState<any>(dayjs('23:00', 'HH:mm'))
+  const [endHour, setEndHour] = useState<any>(dayjs('23:59', 'HH:mm'))
   const {
     data: listFilmData,
     isLoading: isLoadingListFilm,
@@ -102,6 +117,34 @@ function ShowTime() {
     })
   }
 
+  function range(start: any, end: any) {
+    const result = []
+    for (let i = start; i < end; i++) {
+      result.push(i)
+    }
+    return result
+  }
+
+  function disabledDate(current: any) {
+    return current && dayjs(current).isBefore(new Date(), 'day')
+  }
+
+  function disabledStartHour(current: any) {
+    if ((current && current.format('YYYY-MM-DD') === new Date(), 'day')) {
+      return {
+        disabledHours: () => range(dayjs(endHour).hour(), 24),
+      }
+    }
+  }
+
+  function disabledEndHour(current: any) {
+    if ((current && current.format('YYYY-MM-DD') === new Date(), 'day')) {
+      return {
+        disabledHours: () => range(0, dayjs(startHour).hour()),
+      }
+    }
+  }
+
   return (
     <>
       <Col span={24}>
@@ -159,19 +202,33 @@ function ShowTime() {
           </Form.Item>
 
           <Form.Item {...labelStyle} label="Giá vé" name="price">
-            <Input type="number" />
+            <InputNumber min={1} style={{ width: '100%' }} />
           </Form.Item>
 
           <Form.Item {...labelStyle} label="Ngày chiếu" name="day">
-            <DatePicker />
+            <DatePicker
+              disabledDate={(current) => {
+                return current && current <= dayjs()
+              }}
+            />
           </Form.Item>
 
           <Form.Item {...labelStyle} label="Giờ bắt đầu" name="startHour">
-            <TimePicker format="HH:mm" />
+            <TimePicker
+              format="HH:mm"
+              disabledDate={disabledDate}
+              disabledTime={disabledStartHour}
+              onChange={(v) => setStartHour(v)}
+            />
           </Form.Item>
 
           <Form.Item {...labelStyle} label="Giờ kết thúc" name="endHour">
-            <TimePicker format="HH:mm" />
+            <TimePicker
+              format="HH:mm"
+              disabledDate={disabledDate}
+              disabledTime={disabledEndHour}
+              onChange={(v) => setEndHour(v)}
+            />
           </Form.Item>
           <Form.Item {...labelStyle} label="Trạng thái" name="status">
             <Select>

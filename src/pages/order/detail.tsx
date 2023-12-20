@@ -1,78 +1,87 @@
+import FormSidebar from '@src/components/layout/FormSidebar'
+import HeadHtml from '@src/components/layout/HeadHtml'
+import { FORMAT_TIME_DEFAULT } from '@src/configs/const.config'
+import { checkAuth } from '@src/libs/localStorage'
+import { useQueryOrderById } from '@src/queries/hooks'
+import { Button, Card, Col } from 'antd'
+import dayjs from 'dayjs'
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import Order from '.'
 
 const detail = () => {
-  return (
-    <div>
-      <div className="container">
-        <div className="mt-12 mb-12 px-8 py-4 shadow-htr rounded w-800px mx-auto">
-          <div className="grid grid-cols-2">
-            <div className="flex">
-              <p className="text-2xl font-medium">HÓA ĐƠN </p>
+  const token = checkAuth()
+  const { id } = useParams()
+  const { data: orderData, isLoading: isOrderLoading } = useQueryOrderById(id || '')
 
-              <p className="mt-3px mx-4">
-                <span className="px-2 py-4px font-medium bg-#89ce84 text-xs text-white rounded">ĐÃ THANH TOÁN</span>
-              </p>
-            </div>
-            <div>
-              <div className="bill">
-                <p className="font-medium">Ngày tạo hóa đơn: </p>
-                <p className="text-#6a6868"></p>
-              </div>
-              <div className="bill">
-                <p className="font-medium">Hình thức thanh toán: </p>
-                <p className="text-#6a6868">NCB - Ngân Hàng Quốc Dân</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 mt-12">
-            <div>
-              <p className="font-medium text-xl">Nhà cung cấp dịch vụ: </p>
-              <p className="text-base mt-4">MOFY BOOKING COMPANY LTD</p>
-            </div>
-            <div>
-              <p className="font-medium text-xl">Thông tin khách hàng: </p>
-              <div className="mt-4">
-                <p className="text-base"></p>
-                <p className="text-base">{}</p>
-                <p className="text-base">{}</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p className="font-medium text-xl">Chi tiết đơn hàng: </p>
-            </div>
-            <div>
-              <div className="mt-4 border-b-2 border-#ccc flex justify-between pr-8 pb-2">
-                <p className="text-[#747373]">Tên Film</p>
-                <p className="text-[#747373]">Phòng</p>
-                <p className="text-[#747373]">Ghế</p>
-                <p className="text-[#747373]">Thành tiền</p>
-              </div>
-              <div className="border-b-2 border-#ccc py-4 flex justify-between pr-8">
-                <p>{}</p>
-                <p>{}</p>
-                <p></p>
-                <p>{}đ</p>
-              </div>
-              <div className="py-4 flex justify-between pr-8">
-                <div></div>
-                <div className="flex">
-                  <p className="mr-6 font-bold">Tổng tiền thanh toán</p>
-                  <p className="">{}đ</p>
+  return (
+    <>
+      <HeadHtml title="Chi tiết hóa đơn" />
+      <Col span={24}>
+        <FormSidebar isLoading={isOrderLoading}>
+          <>
+            <FormSidebar.Content>
+              <Card>
+                <div className="head-order">
+                  <div className="title-order">
+                    <h2>HÓA ĐƠN</h2>
+                    {orderData?.data?.status == 'completed' ? (
+                      <Button type="primary">Đặt thành công</Button>
+                    ) : (
+                      <Button type="primary" danger>
+                        Không thành công
+                      </Button>
+                    )}
+                  </div>
+                  <div className="date-order">
+                    <div className="detail-date">
+                      <p>Ngày tạo hóa đơn:</p>
+                      <span>{dayjs(orderData?.data?.createdAt).format(FORMAT_TIME_DEFAULT)}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex justify-end pr-8 mt-2">
-                <button className="btn w-18 text-white font-medium  py-2 rounded-lg">
-                  <span></span>
-                  <a href="/">Quay lại</a>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                <div className="between-order">
+                  <div className="between-title">
+                    <h2>Nhà cung cấp dịch vụ:</h2>
+                    <p>MOFY BOOKING COMPANY LTD</p>
+                  </div>
+                  <div className="between-title">
+                    <h2>Thông tin khách hàng:</h2>
+                    <p>
+                      {orderData?.data?.user?.firstName} {orderData?.data?.user?.lastName}
+                    </p>
+                    <p>{orderData?.data?.user?.phone}</p>
+                    <p>{orderData?.data?.user?.email}</p>
+                  </div>
+                </div>
+                <div className="detail-order">
+                  <h2>Chi tiết đơn hàng:</h2>
+                  <div className="title-detail">
+                    <p>Tên Film</p>
+                    <p>Phòng</p>
+                    <p>Ghế</p>
+                    <p>Thành tiền</p>
+                  </div>
+                  <div className="text-detail">
+                    <p>{orderData?.data?.film}</p>
+                    <p>{orderData?.data?.room}</p>
+                    <p>{orderData?.data?.seats?.join(', ')}</p>
+                    <p>{orderData?.data?.price}đ</p>
+                  </div>
+                </div>
+                <div className="total-order">
+                  <div></div>
+                  <div className="text-order">
+                    <h3>Tổng tiền thanh toán</h3>
+                    <p>{orderData?.data?.price}đ</p>
+                  </div>
+                </div>
+              </Card>
+            </FormSidebar.Content>
+          </>
+        </FormSidebar>
+      </Col>
+    </>
   )
 }
 

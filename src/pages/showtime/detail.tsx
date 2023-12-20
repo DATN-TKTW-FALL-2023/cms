@@ -129,7 +129,6 @@ const DetailShowtime = () => {
             <Row>
               <Col span={5}>
                 <Image width={100} src={ShowTimeData?.data?.film?.thumbnail?.location} />
-
               </Col>
               <Col span={18}>
                 <h2>{ShowTimeData?.data?.film?.name}</h2>

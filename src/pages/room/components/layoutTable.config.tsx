@@ -25,13 +25,13 @@ export const columnsTableLayout = (prefixDetailUrl: string, postType: string): C
       },
     },
     {
-      title: 'Hàng',
+      title: 'Số hàng ghế',
       dataIndex: 'row',
       key: 'row',
       render: (v) => v || '__',
     },
     {
-      title: 'Cột',
+      title: 'Số ghế 1 hàng',
       dataIndex: 'column',
       key: 'column',
     },
